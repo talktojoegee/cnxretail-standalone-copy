@@ -1,0 +1,73 @@
+/* Keep the original homepage and contact layout, and align its colors with the marketplace. */
+.header.header-transparent {
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 0 #e6eaf2;
+}
+.nav-menu > li > a { color: #1c2434; }
+.nav-menu > li.active > a { color: #2446d4; }
+.nav-menu.nav-menu-social > li.add-listing,
+.nav-menu.nav-menu-social > li.add-listing.dark-bg,
+.btn.dark-2,
+.btn.dark-3,
+a.dark-2,
+a.dark-3 {
+    background: #2446d4 !important;
+    border-color: #2446d4 !important;
+}
+.theme-cl-2, .text-info { color: #2446d4 !important; }
+.page-title,
+.page-title.inner-page { background: #15203a; }
+.page-title .ipn-subtitle { color: #c9d4ff; }
+.hero-banner h1 { color: #15203a; }
+.job_grid_02 {
+    background: #fff;
+    border: 1px solid #e6eaf2;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+.job_grid_02 .blog-thumb img {
+    width: 100% !important;
+    height: 220px !important;
+    object-fit: cover;
+}
+.cnx-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
+.cnx-hero-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 148px; padding: 12px 22px; border-radius: 8px;
+    background: #2446d4; color: #fff !important; font-weight: 600; text-decoration: none;
+}
+.cnx-hero-btn-alt { background: #fff; color: #15203a !important; border: 1px solid #2446d4; }
+.cnx-hero-btn:hover { color: #fff; }
+.cnx-hero-btn-alt:hover { color: #15203a; }
+.cnx-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 4px 0 22px; }
+.cnx-tabs a {
+    display: inline-flex; align-items: center; padding: 9px 16px; border-radius: 999px;
+    background: #f4f6fb; border: 1px solid #d5dbe8; color: #1c2434; font-weight: 600;
+    text-decoration: none; line-height: 1.2;
+}
+.cnx-tabs a.is-active, .cnx-tabs a:hover { background: #2446d4; border-color: #2446d4; color: #fff; }
+.job_grid_02 .jb_grid_01_caption { padding: 14px 14px 0; }
+.job_grid_02 ._jb_title { margin: 0 0 8px; font-size: 16px; line-height: 1.35; }
+.job_grid_02 ._jb_title a { color: #1c2434; }
+.cnx-card-meta { color: #738099; font-size: 13px; margin-bottom: 8px; }
+.job_grid_02 .jb_grid_01_footer { padding: 0 14px 16px; text-align: center; }
+._jb_apply,
+._browse_more-2 {
+    background: #2446d4 !important;
+    color: #fff !important;
+    border-radius: 999px;
+    min-height: 44px;
+    padding: 10px 22px !important;
+    line-height: 1.2;
+}
+._browse_more-2 { display: inline-flex; align-items: center; margin-top: 8px; }
+.cnx-letter {
+    display: flex; align-items: center; justify-content: center; height: 220px;
+    background: #e8eefc; color: #2446d4; font-size: 42px; font-weight: 700;
+}
+.contact_row,
+.contact_side {
+    border-radius: 16px;
+}
