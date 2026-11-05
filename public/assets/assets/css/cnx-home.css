@@ -2,6 +2,7 @@
 .header.header-transparent {
     background: #fff;
     position: relative;
+    display: block; /* The theme's inline-block leaves a gap below the header. */
     box-shadow: 0 1px 0 #e6eaf2;
 }
 .nav-menu > li > a { color: #1c2434; }
@@ -19,7 +20,6 @@ a.dark-3 {
 .page-title,
 .page-title.inner-page { background: #15203a; }
 .page-title .ipn-subtitle { color: #c9d4ff; }
-.hero-banner h1 { color: #15203a; }
 .job_grid_02 {
     background: #fff;
     border: 1px solid #e6eaf2;
@@ -32,15 +32,218 @@ a.dark-3 {
     height: 220px !important;
     object-fit: cover;
 }
-.cnx-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 18px; }
-.cnx-hero-btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-width: 148px; padding: 12px 22px; border-radius: 8px;
-    background: #2446d4; color: #fff !important; font-weight: 600; text-decoration: none;
+
+/* Homepage hero carousel */
+.cnx-showcase {
+    position: relative;
+    overflow: hidden;
+    padding: 0; /* The theme adds padding to every section. */
+    background: #15203a;
 }
-.cnx-hero-btn-alt { background: #fff; color: #15203a !important; border: 1px solid #2446d4; }
-.cnx-hero-btn:hover { color: #fff; }
-.cnx-hero-btn-alt:hover { color: #15203a; }
+/* Slides share one grid cell, so the hero keeps the height of its tallest slide. */
+.cnx-showcase-track { display: grid; }
+.cnx-slide {
+    grid-area: 1 / 1;
+    position: relative;
+    display: flex;
+    align-items: flex-end; /* Keeps the button in the same spot whatever the heading length. */
+    min-height: clamp(540px, 78vh, 720px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .9s ease, visibility 0s linear .9s;
+}
+.cnx-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .9s ease, visibility 0s;
+}
+.cnx-slide-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+    transition: transform 8s ease-out;
+}
+.cnx-slide.is-active .cnx-slide-image { transform: scale(1); }
+.cnx-slide-image-portrait {
+    inset: 0 0 0 auto;
+    width: 58%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
+}
+.cnx-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(13, 20, 38, .9) 0%, rgba(13, 20, 38, .78) 38%, rgba(13, 20, 38, .2) 72%, rgba(13, 20, 38, .08) 100%);
+}
+.cnx-slide-inner {
+    position: relative;
+    z-index: 1;
+    padding-top: 64px;
+    padding-bottom: 104px;
+}
+.cnx-slide-copy {
+    max-width: 540px;
+    opacity: 0;
+    transform: translateY(14px);
+}
+.cnx-slide.is-active .cnx-slide-copy {
+    opacity: 1;
+    transform: none;
+    transition: opacity .7s ease .25s, transform .7s ease .25s;
+}
+.cnx-slide-audience {
+    display: block;
+    margin-bottom: 16px;
+    color: #c9d4ff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+.cnx-slide-heading {
+    margin: 0 0 16px;
+    color: #fff;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+}
+.cnx-slide-tagline {
+    margin: 0 0 8px;
+    max-width: 480px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+.cnx-slide-text {
+    margin: 0;
+    max-width: 480px;
+    color: rgba(255, 255, 255, .86);
+    font-size: 17px;
+    line-height: 1.55;
+}
+.cnx-slide-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    margin-top: 24px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    background: #2446d4;
+    color: #fff !important;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color .2s ease;
+}
+.cnx-slide-button:hover,
+.cnx-slide-button:focus { background: #1b37ad; }
+.cnx-slide-button i { font-size: 14px; transition: transform .2s ease; }
+.cnx-slide-button:hover i { transform: translateX(3px); }
+
+.cnx-showcase-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28px;
+    z-index: 2;
+}
+.cnx-showcase-controls-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+.cnx-showcase-bars { display: flex; gap: 8px; }
+.cnx-showcase-bar {
+    width: 56px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+.cnx-showcase-bar span {
+    display: block;
+    position: relative;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, .35);
+}
+.cnx-showcase-bar:hover span { background: rgba(255, 255, 255, .6); }
+.cnx-showcase-bar.is-active span::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform-origin: left;
+    animation: cnx-showcase-progress 6s linear forwards;
+}
+.cnx-showcase.is-paused .cnx-showcase-bar.is-active span::after { animation-play-state: paused; }
+@keyframes cnx-showcase-progress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+.cnx-showcase-buttons { display: flex; gap: 8px; }
+.cnx-showcase-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 50%;
+    background: rgba(13, 20, 38, .45);
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease;
+}
+.cnx-showcase-button:hover { background: #2446d4; border-color: #2446d4; }
+.cnx-showcase button:focus { outline: none; }
+.cnx-showcase button:focus-visible,
+.cnx-slide-button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+@media (max-width: 767px) {
+    .cnx-slide::after {
+        background: linear-gradient(180deg, rgba(13, 20, 38, .15) 0%, rgba(13, 20, 38, .6) 42%, rgba(13, 20, 38, .92) 100%);
+    }
+    .cnx-slide { min-height: 420px; }
+    .cnx-slide-image-portrait {
+        inset: 0;
+        width: 100%;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+    .cnx-slide-inner { padding-top: 32px; padding-bottom: 72px; }
+    .cnx-slide-audience { margin-bottom: 10px; font-size: 12px; }
+    .cnx-slide-heading { margin-bottom: 8px; font-size: 26px; }
+    .cnx-slide-tagline { margin-bottom: 4px; font-size: 16px; }
+    .cnx-slide-text { font-size: 14px; line-height: 1.45; }
+    .cnx-slide-button { min-height: 46px; margin-top: 14px; padding: 11px 22px; font-size: 15px; }
+    .cnx-showcase-controls { bottom: 8px; }
+    .cnx-showcase-bar { width: 32px; }
+    .cnx-showcase-button[data-showcase-prev],
+    .cnx-showcase-button[data-showcase-next] { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cnx-slide,
+    .cnx-slide.is-active,
+    .cnx-slide.is-active .cnx-slide-copy { transition: none; }
+    .cnx-slide-image,
+    .cnx-slide.is-active .cnx-slide-image { transform: none; transition: none; }
+    .cnx-slide-copy { transform: none; }
+}
+
 .cnx-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 4px 0 22px; }
 .cnx-tabs a {
     display: inline-flex; align-items: center; padding: 9px 16px; border-radius: 999px;

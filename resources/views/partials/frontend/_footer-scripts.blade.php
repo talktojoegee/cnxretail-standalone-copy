@@ -8,5 +8,6 @@
 <script src="/assets/assets/js/materialize.min.js"></script>
 <script src="/assets/assets/js/metisMenu.min.js"></script>
 <script src="/assets/assets/js/custom.js"></script>
+<script src="/assets/assets/js/cnx-home.js"></script>
 </body>
 </html>

@@ -5,27 +5,91 @@
 @endsection
 
 @section('main-content')
-    <div class="hero-banner full jumbo-banner" style="background:#f4f9fd url(assets/assets/img/bg2.png);">
-        <div class="container">
-            <div class="row align-items-center">
+    @php
+        // Hero slides: edit the wording, image, or button link of any slide here.
+        $heroSlides = [
+            [
+                'audience' => 'For vendors',
+                'heading' => 'Sell on Markethub',
+                'tagline' => 'Online Store + Marketplace',
+                'button' => 'Create a Store',
+                'link' => route('register'),
+                'image' => '/assets/assets/img/hero/vendor-market-stall.jpg',
+                'focus' => '50% 40%',
+                'source' => 'https://nappy.co/photo/shopping-in-market%2Bjaf9HWx_i6g_eLRaBjZQj', // CC0, from Nappy
+            ],
+            [
+                'audience' => 'For buyers',
+                'heading' => 'Discover and Buy',
+                'tagline' => 'Explore vast categories, from fashion to electronics and everyday essentials',
+                'button' => 'Sign Up',
+                'link' => route('register'),
+                'image' => '/assets/assets/img/hero/buyer-on-phone.jpg',
+                'focus' => '50% 68%',
+                'portrait' => true, // Tall photo: shown as a panel on the right so it isn't over-zoomed.
+                'source' => 'https://nappy.co/photo/outdoor-relaxation-with-smartphone%2BQUNbaXfgQhv5g82trB-iR', // CC0, from Nappy
+            ],
+            [
+                'audience' => 'For vendors',
+                'heading' => 'Become a Vendor',
+                'tagline' => 'Create your online store',
+                'support' => 'Set up in minutes, list your products, and start receiving orders.',
+                'button' => 'Start Selling',
+                'link' => route('register'),
+                'image' => '/assets/assets/img/hero/vendor-laptop.jpg',
+                'focus' => '50% 30%',
+                'source' => 'https://nappy.co/photo/black-woman-working-with-a-laptop%2BTBi1JQmOdVPQI_z9odVxR', // CC0, from Nappy
+            ],
+            [
+                'audience' => 'For buyers',
+                'heading' => 'Explore the Markethub',
+                'tagline' => 'Browse products, order and checkout',
+                'support' => 'Thousands of products from trusted vendors, with secure payment by CSwitch.',
+                'button' => 'Shop Now',
+                'link' => route('marketplace'),
+                'image' => '/assets/assets/img/hero/buyer-on-sofa.jpg',
+                'focus' => '50% 8%',
+                'source' => 'https://nappy.co/photo/home-entertainment-woman-on-couch-using-ipad%2BjS08oe4lSEMyKXjtuUBRS', // CC0, from Nappy
+            ],
+        ];
+    @endphp
 
-                <div class="col-lg-7 col-md-8">
-                    <h1>Organize <span class="text-info">Your Sales</span> Processes!</h1>
-                    <p class="lead">All in one place.</p>
-                        <div class="cnx-hero-actions">
-                            <a href="{{ route('contact-us') }}" class="cnx-hero-btn">Send Request</a>
-                            <a href="{{ route('register') }}" class="cnx-hero-btn cnx-hero-btn-alt">Start Trial</a>
+    <section class="cnx-showcase" data-showcase aria-roledescription="carousel" aria-label="Markethub highlights for vendors and buyers">
+        <div class="cnx-showcase-track" data-showcase-track aria-live="off">
+            @foreach($heroSlides as $slide)
+                @php $headingTag = $loop->first ? 'h1' : 'h2'; @endphp
+                <div class="cnx-slide {{ $loop->first ? 'is-active' : '' }}" data-showcase-slide role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
+                    <img class="cnx-slide-image {{ ($slide['portrait'] ?? false) ? 'cnx-slide-image-portrait' : '' }}" src="{{ $slide['image'] }}" alt="" style="object-position: {{ $slide['focus'] }};" @unless($loop->first) loading="lazy" @endunless>
+                    <div class="container cnx-slide-inner">
+                        <div class="cnx-slide-copy">
+                            <span class="cnx-slide-audience">{{ $slide['audience'] }}</span>
+                            <{{ $headingTag }} class="cnx-slide-heading">{{ $slide['heading'] }}</{{ $headingTag }}>
+                            <p class="cnx-slide-tagline">{{ $slide['tagline'] }}</p>
+                            @isset($slide['support'])
+                                <p class="cnx-slide-text">{{ $slide['support'] }}</p>
+                            @endisset
+                            <a href="{{ $slide['link'] }}" class="cnx-slide-button">{{ $slide['button'] }} <i class="ti-arrow-right" aria-hidden="true"></i></a>
                         </div>
-
+                    </div>
                 </div>
+            @endforeach
+        </div>
 
-                <div class="col-lg-5 col-md-4">
-                    <img src="/assets/assets/img/a-2.png" alt="latest property" class="img-fluid">
+        <div class="cnx-showcase-controls">
+            <div class="container cnx-showcase-controls-inner">
+                <div class="cnx-showcase-bars">
+                    @foreach($heroSlides as $slide)
+                        <button type="button" class="cnx-showcase-bar {{ $loop->first ? 'is-active' : '' }}" data-showcase-bar aria-label="Go to slide {{ $loop->iteration }}: {{ $slide['heading'] }}" @if($loop->first) aria-current="true" @endif><span></span></button>
+                    @endforeach
                 </div>
-
+                <div class="cnx-showcase-buttons">
+                    <button type="button" class="cnx-showcase-button" data-showcase-pause aria-label="Pause slideshow"><i class="ti-control-pause" aria-hidden="true"></i></button>
+                    <button type="button" class="cnx-showcase-button" data-showcase-prev aria-label="Previous slide"><i class="ti-arrow-left" aria-hidden="true"></i></button>
+                    <button type="button" class="cnx-showcase-button" data-showcase-next aria-label="Next slide"><i class="ti-arrow-right" aria-hidden="true"></i></button>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
     <section class="how-it-works">
         <div class="container">
             <div class="row justify-content-center">
