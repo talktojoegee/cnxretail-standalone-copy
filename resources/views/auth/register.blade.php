@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Create your {{ config('app.name') }} account and start selling on Markethub.">
-    <title>{{ config('app.name') }} – Register</title>
+    @include('partials.seo', [
+        'seoTitle' => 'Register',
+        'seoDescription' => 'Create your '.config('app.name').' account and open a store on the marketplace.',
+    ])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="/assets/assets/css/cnx-auth.css" rel="stylesheet">

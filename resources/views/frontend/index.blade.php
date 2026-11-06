@@ -1,8 +1,7 @@
 @extends('layouts.frontend-layout')
 
-@section('title')
-    Home
-@endsection
+@section('title', 'Marketplace for vendors and buyers')
+@section('meta-description', config('app.name').' is a marketplace where vendors open a store and buyers discover products, place orders, and check out.')
 
 @section('main-content')
     @php

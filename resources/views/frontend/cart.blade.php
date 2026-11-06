@@ -1,5 +1,7 @@
 @extends('layouts.marketplace-layout')
 @section('title', 'Cart')
+@section('meta-description', 'Review the products in your '.config('app.name').' cart before checkout.')
+@section('meta-robots', 'noindex, nofollow')
 @section('current-page', 'Cart')
 
 @section('main-content')

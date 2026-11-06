@@ -1,15 +1,8 @@
 @extends('layouts.frontend-layout')
-@section('title')
-    Contact us
-@endsection
+@section('title', 'Contact us')
+@section('meta-description', 'Contact '.config('app.name').' about a store, an order, or selling on the marketplace.')
 @section('extra-styles')
 
-@endsection
-@section('meta-keyword')
-    Masterly, contact us, data analyst, data management, statistical analysis, behavioural science, modelers, clients, Masterly.uk, Bayelsian analysis, MATLab,
-@endsection
-@section('meta-description')
-    Masterly is home to data analyst. We connect client with modelers in different categories or fields to achieve their set objectives.
 @endsection
 
 @section('main-content')

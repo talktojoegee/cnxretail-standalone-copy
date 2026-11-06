@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>CNX Retail - @yield('title')</title>
-    <meta name="keywords" content="Marketplace ecommerce responsive HTML5 Template" />
-    <meta name="description" content="CNX Retail marketplace. Browse products, compare sellers, and check out.">
-    <meta name="author" content="D-THEMES">
+    @include('partials.seo')
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/marketplace/assets/images/icons/favicon.png">
     <!-- WebFont.js -->

@@ -1,5 +1,7 @@
 @extends('layouts.marketplace-layout')
 @section('title', 'Checkout')
+@section('meta-description', 'Send your '.config('app.name').' order to the sellers and add a delivery address.')
+@section('meta-robots', 'noindex, nofollow')
 @section('current-page', 'Checkout')
 
 @section('main-content')

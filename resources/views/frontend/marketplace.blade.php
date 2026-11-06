@@ -1,7 +1,16 @@
 @extends('layouts.marketplace-layout')
 
-@section('title')
-    {{ $heading ?? 'Marketplace' }}
+@section('title', $heading ?? 'Marketplace')
+@section('meta-description')
+@if(request()->filled('keyword'))
+Products matching “{{ request('keyword') }}” from vendors on {{ config('app.name') }}.
+@elseif(request()->routeIs('vendor-store'))
+Shop products from {{ $heading }} on the {{ config('app.name') }} marketplace.
+@elseif(request()->routeIs('product-category'))
+Shop {{ $heading }} from vendors on the {{ config('app.name') }} marketplace.
+@else
+Browse products from vendors on {{ config('app.name') }}. Compare sellers and check out.
+@endif
 @endsection
 @section('current-page')
     {{ $heading ?? 'Marketplace' }}

@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="CRM of class">
+    <meta name="description" content="{{ config('app.name') }} account. Manage sales, contacts, and your store.">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="author" content="Connexxion Telecom">
-    <meta name="keywords" content="Manage all your business needs in one place.">
     <link rel="shortcut icon" type="image/x-icon" href="#" />
     <title>{{config('app.name')}} –  @yield('title')</title>
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />

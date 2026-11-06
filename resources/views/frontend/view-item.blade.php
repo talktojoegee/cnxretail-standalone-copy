@@ -1,6 +1,20 @@
 @extends('layouts.marketplace-layout')
 
+@php
+    $seoPhoto = optional($item->getItemGalleryImages->first())->attachment;
+    $seoPlain = trim(preg_replace('/\s+/', ' ', strip_tags((string) $item->description)));
+    $seoKind = (int) $item->item_type === 2 ? 'service' : 'product';
+    $seoSeller = $item->getTenant->company_name ?? null;
+    $seoDescription = $seoPlain === ''
+        ? $item->item_name.' is a '.$seoKind.($seoSeller ? ' from '.$seoSeller : '').' on '.config('app.name').'. ₦'.number_format($item->selling_price, 2).'.'
+        : (stripos($seoPlain, $item->item_name) === 0 ? $seoPlain : $item->item_name.'. '.$seoPlain);
+@endphp
 @section('title', $item->item_name)
+@section('meta-description', $seoDescription)
+@section('meta-type', 'product')
+@if($seoPhoto)
+@section('meta-image', '/assets/drive/'.$seoPhoto)
+@endif
 @section('current-page', $item->item_name)
 
 @section('main-content')
