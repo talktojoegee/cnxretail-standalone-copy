@@ -1,0 +1,21 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/cnxretail/public_html/
+    - /bin/cp -R app $DEPLOYPATH
+    - /bin/cp -R bootstrap $DEPLOYPATH
+    - /bin/cp -R config $DEPLOYPATH
+    - /bin/cp -R database $DEPLOYPATH
+    - /bin/cp -R public $DEPLOYPATH
+    - /bin/cp -R resources $DEPLOYPATH
+    - /bin/cp -R routes $DEPLOYPATH
+    - /bin/cp -R storage $DEPLOYPATH
+    - /bin/cp artisan $DEPLOYPATH
+    - /bin/cp composer.json $DEPLOYPATH
+    - /bin/cp composer.lock $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp server.php $DEPLOYPATH
+    - /bin/chmod -R 775 /home/cnxretail/public_html/storage /home/cnxretail/public_html/bootstrap/cache
+    - /opt/cpanel/ea-php83/root/usr/bin/php /opt/cpanel/composer/bin/composer install --no-dev --no-interaction --optimize-autoloader --working-dir=/home/cnxretail/public_html
+    - /opt/cpanel/ea-php83/root/usr/bin/php /home/cnxretail/public_html/artisan storage:link
+    - /opt/cpanel/ea-php83/root/usr/bin/php /home/cnxretail/public_html/artisan optimize:clear
