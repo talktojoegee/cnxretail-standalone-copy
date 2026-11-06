@@ -1,112 +1,112 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-
-    <!-- META DATA -->
     <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{{config('app.name')}} –  HTML5 Bootstrap Admin Template">
-    <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords" content="">
-    <link rel="shortcut icon" type="image/x-icon" href="http://akmaltechnology.com/template/yoha/assets/images/brand/favicon.ico" />
-    <title>{{config('app.name')}} –  Login</title>
-    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/style.css" rel="stylesheet"/>
-    <link href="/assets/css/skin-modes.css" rel="stylesheet"/>
-    <link href="/assets/css/dark-style.css" rel="stylesheet"/>
-    <link href="/assets/plugins/single-page/css/main.css" rel="stylesheet" type="text/css">
-    <link href="/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet"/>
-    <link href="/assets/css/icons.css" rel="stylesheet"/>
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="../assets/colors/color1.css" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Log in to your {{ config('app.name') }} account.">
+    <title>{{ config('app.name') }} – Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/assets/assets/css/cnx-auth.css" rel="stylesheet">
 </head>
+<body class="cnx-auth">
 
-<body class="app sidebar-mini">
-
-<!-- BACKGROUND-IMAGE -->
-<div class="login-img">
-    <!-- PAGE -->
-    <div class="page">
-        <div class="">
-            <!-- CONTAINER OPEN -->
-            <div class="col col-login mx-auto">
-                <div class="text-center">
-                    <a href="{{route('homepage')}}">
-                        <img src="/assets/images/brand/main.png" class="header-brand-img" alt="logo">
-                    </a>
-                </div>
+<main class="cnx-auth-shell">
+    {{-- Brand panel (desktop) / compact header (tablets) --}}
+    <aside class="cnx-auth-brand">
+        <img class="cnx-auth-brand-photo" src="/assets/assets/img/hero/vendor-market-stall.jpg" alt="" style="object-position: 62% 40%;">
+        <div class="cnx-auth-brand-inner">
+            <a href="{{ route('homepage') }}" class="cnx-auth-logo">
+                <img src="/assets/images/brand/main.png" alt="{{ config('app.name') }} home">
+            </a>
+            <div class="cnx-auth-brand-copy">
+                <span class="cnx-auth-eyebrow">Welcome back</span>
+                <h1>Your business, all in one place</h1>
+                <p>Log in to manage your store, products and services, invoices and receipts.</p>
+                <ul class="cnx-auth-points">
+                    <li><span aria-hidden="true">✓</span> Your store on Markethub</li>
+                    <li><span aria-hidden="true">✓</span> Contacts and customers</li>
+                    <li><span aria-hidden="true">✓</span> Invoices and receipts</li>
+                </ul>
             </div>
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    @if(session()->has('error'))
-                        <div class="alert alert-warning mb-4">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Whoops!</strong>
-                            <hr class="message-inner-separator">
-                            <p>{!! session()->get('error') !!}</p>
-                        </div>
-                    @endif
-                        @if(session()->has('success'))
-                        <div class="alert alert-success mb-4">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <strong>Great!</strong>
-                            <hr class="message-inner-separator">
-                            <p>{!! session()->get('success') !!}</p>
-                        </div>
-                    @endif
-                </div>
-            </div>
-            <div class="container-login100">
-                <div class="wrap-login100 p-6">
-                    <form class="login100-form validate-form" action="{{route('login')}}" method="post">
-                        @csrf
-                        <span class="login100-form-title">
-                            Login
-                        </span>
-                        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                            <input class="input100" type="text" name="email" value="{{old('email')}}" placeholder="Email">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 8l-8 5-8-5v10h16zm0-2H4l8 4.99z" opacity=".3"/><path d="M4 20h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2zM20 6l-8 4.99L4 6h16zM4 8l8 5 8-5v10H4V8z"/></svg>
-                            </span>
-                        </div>
-                        @error('email') <div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                            <input class="input100"  type="password" name="password"  placeholder="Password">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><g fill="none"><path d="M0 0h24v24H0V0z"/><path d="M0 0h24v24H0V0z" opacity=".87"/></g><path d="M6 20h12V10H6v10zm6-7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" opacity=".3"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
-                            </span>
-                        </div>
-                        @error('password') <div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="text-right pt-1">
-                            <p class="mb-0"><a href="{{route('password.request')}}" class="text-primary ml-1">Forgot Password?</a></p>
-                        </div>
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="login100-form-btn btn-primary">
-                                Login
-                            </button>
-                        </div>
-                        <div class="text-center pt-3">
-                            <p class="text-dark mb-0">Don't have an account?<a href="{{route('register')}}" class="text-primary ml-1">Register now</a></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- CONTAINER CLOSED -->
         </div>
-    </div>
-    <!-- End PAGE -->
+    </aside>
 
-</div>
-<script src="/assets/js/jquery-3.4.1.min.js"></script>
-<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/plugins/bootstrap/js/popper.min.js"></script>
-<script src="/assets/js/jquery.sparkline.min.js"></script>
-<script src="/assets/iconfonts/eva.min.js"></script>
-<script src="/assets/plugins/input-mask/jquery.mask.min.js"></script>
-<script src="/assets/js/custom.js"></script>
+    {{-- Login form --}}
+    <section class="cnx-auth-main">
+        <div class="cnx-auth-card">
+            <a href="{{ route('homepage') }}" class="cnx-auth-logo cnx-auth-logo-mobile">
+                <img src="/assets/images/brand/main.png" alt="{{ config('app.name') }} home">
+            </a>
 
+            @if(session()->has('error'))
+                <div class="cnx-auth-alert cnx-auth-alert-error" role="alert">
+                    <span class="cnx-auth-alert-icon" aria-hidden="true">!</span>
+                    <div>
+                        <strong>Whoops!</strong>
+                        <p>{!! session()->get('error') !!}</p>
+                    </div>
+                </div>
+            @endif
+            @if(session()->has('success'))
+                <div class="cnx-auth-alert" role="status">
+                    <span class="cnx-auth-alert-icon" aria-hidden="true">✓</span>
+                    <div>
+                        <strong>Great!</strong>
+                        <p>{!! session()->get('success') !!}</p>
+                    </div>
+                </div>
+            @endif
+
+            <h2>Log in</h2>
+            <p class="cnx-auth-lead">Welcome back. Enter your details to continue to your dashboard.</p>
+
+            <form action="{{ route('login') }}" method="post" novalidate>
+                @csrf
+
+                <div class="cnx-field @error('email') has-error @enderror">
+                    <label for="email">Email address</label>
+                    <div class="cnx-input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@business.com" autocomplete="email" inputmode="email" autofocus @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
+                    </div>
+                    @error('email')<p class="cnx-field-error" id="email-error">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="cnx-field @error('password') has-error @enderror">
+                    <div class="cnx-label-row">
+                        <label for="password">Password</label>
+                        <a href="{{ route('password.request') }}">Forgot password?</a>
+                    </div>
+                    <div class="cnx-input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                        <input id="password" type="password" name="password" placeholder="••••••••" autocomplete="current-password" @error('password') aria-invalid="true" aria-describedby="password-error" @enderror>
+                        <button type="button" class="cnx-input-toggle" data-toggle-password="password" aria-label="Show password">Show</button>
+                    </div>
+                    @error('password')<p class="cnx-field-error" id="password-error">{{ $message }}</p>@enderror
+                </div>
+
+                <button type="submit" class="cnx-auth-submit">Log in</button>
+
+                <p class="cnx-auth-switch">Don’t have an account? <a href="{{ route('register') }}">Register now</a></p>
+            </form>
+        </div>
+
+        <p class="cnx-auth-footnote">© {{ date('Y') }} {{ config('app.name') }}. <a href="{{ route('homepage') }}">Back to home</a></p>
+    </section>
+</main>
+
+<script>
+    // Show or hide the password. Display only: it doesn't affect what is submitted.
+    document.querySelectorAll('[data-toggle-password]').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var input = document.getElementById(button.getAttribute('data-toggle-password'));
+            var show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            button.textContent = show ? 'Hide' : 'Show';
+            button.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,130 +1,138 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-
-    <!-- META DATA -->
     <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Yoha –  HTML5 Bootstrap Admin Template">
-    <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords" content="admin dashboard html template, admin dashboard template bootstrap 4, analytics dashboard templates, best admin template bootstrap 4, best bootstrap admin template, bootstrap 4 template admin, bootstrap admin template premium, bootstrap admin ui, bootstrap basic admin template, cool admin template, dark admin dashboard, dark admin template, dark dashboard template, dashboard template bootstrap 4, ecommerce dashboard template, html5 admin template, light bootstrap dashboard, sales dashboard template, simple dashboard bootstrap 4, template bootstrap 4 admin">
-    <link rel="shortcut icon" type="image/x-icon" href="http://akmaltechnology.com/template/yoha/assets/images/brand/favicon.ico" />
-    <title>{{config('app.name')}} – Register</title>
-    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/css/style.css" rel="stylesheet"/>
-    <link href="/assets/css/skin-modes.css" rel="stylesheet"/>
-    <link href="/assets/css/dark-style.css" rel="stylesheet"/>
-    <link href="/assets/plugins/single-page/css/main.css" rel="stylesheet" type="text/css">
-    <link href="/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet"/>
-    <link href="/assets/css/icons.css" rel="stylesheet"/>
-    <link id="theme" rel="stylesheet" type="text/css" media="all" href="/assets/colors/color1.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Create your {{ config('app.name') }} account and start selling on Markethub.">
+    <title>{{ config('app.name') }} – Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="/assets/assets/css/cnx-auth.css" rel="stylesheet">
 </head>
+<body class="cnx-auth">
 
-<body class="app sidebar-mini">
-<div class="login-img">
-
-    <!-- PAGE -->
-    <div class="page">
-        <div class="">
-            <!-- CONTAINER OPEN -->
-            <div class="col col-login mx-auto">
-                <div class="text-center">
-                    @if(session()->has('success'))
-                    <div class="alert alert-success mb-4">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <strong>Congratulations!</strong>
-                        <hr class="message-inner-separator">
-                        <p>{!! session()->get('success') !!}</p>
-                    </div>
-                    @endif
-                    <a href="{{route('homepage')}}">
-                        <img src="/assets/images/brand/main.png" class="header-brand-img" alt="logo">
-                    </a>
-                </div>
-            </div>
-            <div class="container-login100">
-
-                <div class="wrap-login100 p-6">
-                    <form class="login100-form validate-form" action="{{route('register')}}" method="post" autocomplete="off">
-                        @csrf
-								<span class="login100-form-title">
-									Registration
-								</span>
-                        <p class="text-center">Start a <strong>30-days</strong> FREE trial. Quickly setup an account for your business/company.</p>
-                        <div class="wrap-input100 validate-input" data-validate = "Enter company name">
-                            <input class="input100" type="text" name="company_name" value="{{old('company_name')}}" placeholder="Company Name">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><circle cx="12" cy="8" opacity=".3" r="2.1"/><path d="M12 14.9c-2.97 0-6.1 1.46-6.1 2.1v1.1h12.2V17c0-.64-3.13-2.1-6.1-2.1z" opacity=".3"/><path d="M12 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6.1 5.1H5.9V17c0-.64 3.13-2.1 6.1-2.1s6.1 1.46 6.1 2.1v1.1zM12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6.1c1.16 0 2.1.94 2.1 2.1 0 1.16-.94 2.1-2.1 2.1S9.9 9.16 9.9 8c0-1.16.94-2.1 2.1-2.1z"/></svg>
-                            </span>
-                        </div>
-                        @error('company_name')<div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="wrap-input100 validate-input" data-validate = "Enter first name">
-                            <input class="input100" type="text" name="first_name" value="{{old('first_name')}}" placeholder="First Name">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><circle cx="12" cy="8" opacity=".3" r="2.1"/><path d="M12 14.9c-2.97 0-6.1 1.46-6.1 2.1v1.1h12.2V17c0-.64-3.13-2.1-6.1-2.1z" opacity=".3"/><path d="M12 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6.1 5.1H5.9V17c0-.64 3.13-2.1 6.1-2.1s6.1 1.46 6.1 2.1v1.1zM12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6.1c1.16 0 2.1.94 2.1 2.1 0 1.16-.94 2.1-2.1 2.1S9.9 9.16 9.9 8c0-1.16.94-2.1 2.1-2.1z"/></svg>
-                            </span>
-                        </div>
-                        @error('first_name')<div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="wrap-input100 validate-input" data-validate = "Enter a valid email address">
-                            <input class="input100" type="text" name="email" placeholder="Email Address" value="{{old('email')}}">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 8l-8 5-8-5v10h16zm0-2H4l8 4.99z" opacity=".3"/><path d="M4 20h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2zM20 6l-8 4.99L4 6h16zM4 8l8 5 8-5v10H4V8z"/></svg>
-									</span>
-                        </div>
-                        @error('email')<div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                            <input class="input100" type="password" name="password" placeholder="Choose Password">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><g fill="none"><path d="M0 0h24v24H0V0z"/><path d="M0 0h24v24H0V0z" opacity=".87"/></g><path d="M6 20h12V10H6v10zm6-7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" opacity=".3"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
-									</span>
-                        </div>
-                        @error('password')<div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="wrap-input100 validate-input" data-validate = "Re-type password">
-                            <input class="input100" type="password" name="password_confirmation" placeholder="Re-type Password">
-                            <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><g fill="none"><path d="M0 0h24v24H0V0z"/><path d="M0 0h24v24H0V0z" opacity=".87"/></g><path d="M6 20h12V10H6v10zm6-7c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" opacity=".3"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
-                            </span>
-                        </div>
-                        <label class="custom-control custom-checkbox mt-4">
-                            <input type="checkbox" class="custom-control-input" name="terms">
-                            <span class="custom-control-label">Agree the <a href="#">terms and policy</a></span>
-                        </label>
-                        @error('terms')<div><i class="text-danger">{{$message}}</i></div>@enderror
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="login100-form-btn btn-primary">
-                                Register
-                            </button>
-                        </div>
-                        <div class="text-center pt-3">
-                            <p class="text-dark mb-0">Already have account?
-                                <a href="{{route('login')}}"  class="text-primary ml-1">Login</a>
-                            </p>
-                        </div>
-                    </form>
-                </div>
+<main class="cnx-auth-shell">
+    {{-- Brand panel (desktop) / compact header (phones) --}}
+    <aside class="cnx-auth-brand">
+        <img class="cnx-auth-brand-photo" src="/assets/assets/img/hero/vendor-laptop.jpg" alt="">
+        <div class="cnx-auth-brand-inner">
+            <a href="{{ route('homepage') }}" class="cnx-auth-logo">
+                <img src="/assets/images/brand/main.png" alt="{{ config('app.name') }} home">
+            </a>
+            <div class="cnx-auth-brand-copy">
+                <span class="cnx-auth-eyebrow">For vendors</span>
+                <h1>Open your online store on Markethub</h1>
+                <p>Set up your business in minutes, list your products and services, and start receiving orders.</p>
+                <ul class="cnx-auth-points">
+                    <li><span aria-hidden="true">✓</span> 30-day free trial</li>
+                    <li><span aria-hidden="true">✓</span> Your own store page</li>
+                    <li><span aria-hidden="true">✓</span> Invoices and receipts built in</li>
+                </ul>
             </div>
         </div>
-    </div>
-</div>
-<script src="/assets/js/jquery-3.4.1.min.js"></script>
-<script src="/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/plugins/bootstrap/js/popper.min.js"></script>
+    </aside>
 
-<!-- EVA-ICONS JS -->
-<script src="/assets/iconfonts/eva.min.js"></script>
+    {{-- Registration form --}}
+    <section class="cnx-auth-main">
+        <div class="cnx-auth-card">
+            <a href="{{ route('homepage') }}" class="cnx-auth-logo cnx-auth-logo-mobile">
+                <img src="/assets/images/brand/main.png" alt="{{ config('app.name') }} home">
+            </a>
 
-<!-- INPUT MASK JS -->
-<script src="/assets/plugins/input-mask/jquery.mask.min.js"></script>
+            @if(session()->has('success'))
+                <div class="cnx-auth-alert" role="status">
+                    <span class="cnx-auth-alert-icon" aria-hidden="true">✓</span>
+                    <div>
+                        <strong>Congratulations!</strong>
+                        <p>{!! session()->get('success') !!}</p>
+                    </div>
+                </div>
+            @endif
 
-<!-- CUSTOM SCROLL BAR JS-->
-<script src="/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="/assets/js/custom.js"></script>
+            <h2>Create your account</h2>
+            <p class="cnx-auth-lead">Start a <strong>30-day free trial</strong>. Quickly set up an account for your business or company.</p>
 
+            <form action="{{ route('register') }}" method="post" autocomplete="off" novalidate>
+                @csrf
+
+                <div class="cnx-field @error('company_name') has-error @enderror">
+                    <label for="company_name">Company name</label>
+                    <div class="cnx-input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v16M15 9h4a1 1 0 0 1 1 1v11M3 21h18M8 8h3M8 12h3M8 16h3"/></svg>
+                        <input id="company_name" type="text" name="company_name" value="{{ old('company_name') }}" placeholder="e.g. Adaeze Fashion House" autocomplete="organization" @error('company_name') aria-invalid="true" aria-describedby="company_name-error" @enderror>
+                    </div>
+                    @error('company_name')<p class="cnx-field-error" id="company_name-error">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="cnx-field @error('first_name') has-error @enderror">
+                    <label for="first_name">First name</label>
+                    <div class="cnx-input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+                        <input id="first_name" type="text" name="first_name" value="{{ old('first_name') }}" placeholder="Your first name" autocomplete="given-name" @error('first_name') aria-invalid="true" aria-describedby="first_name-error" @enderror>
+                    </div>
+                    @error('first_name')<p class="cnx-field-error" id="first_name-error">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="cnx-field @error('email') has-error @enderror">
+                    <label for="email">Email address</label>
+                    <div class="cnx-input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="you@business.com" autocomplete="email" inputmode="email" @error('email') aria-invalid="true" aria-describedby="email-error" @enderror>
+                    </div>
+                    @error('email')<p class="cnx-field-error" id="email-error">{{ $message }}</p>@enderror
+                </div>
+
+                <div class="cnx-field-row">
+                    <div class="cnx-field @error('password') has-error @enderror">
+                        <label for="password">Password</label>
+                        <div class="cnx-input">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                            <input id="password" type="password" name="password" placeholder="••••••••" autocomplete="new-password" @error('password') aria-invalid="true" aria-describedby="password-error" @enderror>
+                            <button type="button" class="cnx-input-toggle" data-toggle-password="password" aria-label="Show password">Show</button>
+                        </div>
+                        @error('password')<p class="cnx-field-error" id="password-error">{{ $message }}</p>@enderror
+                    </div>
+
+                    <div class="cnx-field">
+                        <label for="password_confirmation">Re-type password</label>
+                        <div class="cnx-input">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                            <input id="password_confirmation" type="password" name="password_confirmation" placeholder="••••••••" autocomplete="new-password">
+                            <button type="button" class="cnx-input-toggle" data-toggle-password="password_confirmation" aria-label="Show password">Show</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cnx-field @error('terms') has-error @enderror">
+                    <label class="cnx-check">
+                        <input type="checkbox" name="terms" @checked(old('terms')) @error('terms') aria-invalid="true" aria-describedby="terms-error" @enderror>
+                        <span class="cnx-check-box" aria-hidden="true"></span>
+                        <span>I agree to the <a href="#">terms and policy</a></span>
+                    </label>
+                    @error('terms')<p class="cnx-field-error" id="terms-error">{{ $message }}</p>@enderror
+                </div>
+
+                <button type="submit" class="cnx-auth-submit">Create account</button>
+
+                <p class="cnx-auth-switch">Already have an account? <a href="{{ route('login') }}">Log in</a></p>
+            </form>
+        </div>
+
+        <p class="cnx-auth-footnote">© {{ date('Y') }} {{ config('app.name') }}. <a href="{{ route('homepage') }}">Back to home</a></p>
+    </section>
+</main>
+
+<script>
+    // Show or hide a password field. Display only: it doesn't affect what is submitted.
+    document.querySelectorAll('[data-toggle-password]').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var input = document.getElementById(button.getAttribute('data-toggle-password'));
+            var show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            button.textContent = show ? 'Hide' : 'Show';
+            button.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        });
+    });
+</script>
 </body>
 </html>

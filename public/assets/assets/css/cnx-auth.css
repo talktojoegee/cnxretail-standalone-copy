@@ -1,0 +1,240 @@
+/* Registration and sign-in pages */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+.cnx-auth {
+    min-height: 100vh;
+    background: #f6f7fb;
+    color: #111a33;
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+.cnx-auth a { color: #2446d4; font-weight: 600; text-decoration: none; }
+.cnx-auth a:hover { text-decoration: underline; }
+.cnx-auth a:focus-visible,
+.cnx-auth button:focus-visible { outline: 2px solid #2446d4; outline-offset: 2px; }
+
+.cnx-auth-shell { display: grid; grid-template-columns: minmax(380px, 46%) 1fr; min-height: 100vh; }
+
+/* Brand panel */
+.cnx-auth-brand { position: relative; overflow: hidden; background: #15203a; color: #fff; }
+.cnx-auth-brand-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; }
+.cnx-auth-brand::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(13, 20, 38, .35) 0%, rgba(13, 20, 38, .55) 45%, rgba(13, 20, 38, .94) 100%);
+}
+.cnx-auth-brand-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 100vh;
+    padding: 40px 48px 56px;
+}
+.cnx-auth-logo { display: inline-flex; align-self: flex-start; padding: 8px 12px; border-radius: 10px; background: #fff; }
+.cnx-auth-logo img { display: block; width: auto; height: 32px; }
+.cnx-auth-logo:hover { text-decoration: none; }
+.cnx-auth-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .14);
+    color: #dbe3ff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.cnx-auth-brand h1 { margin: 0 0 14px; font-size: clamp(28px, 2.8vw, 40px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.cnx-auth-brand p { max-width: 440px; margin: 0 0 24px; color: rgba(255, 255, 255, .82); font-size: 16px; line-height: 1.6; }
+.cnx-auth-points { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.cnx-auth-points li { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; }
+.cnx-auth-points span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #2446d4;
+    font-size: 12px;
+}
+
+/* Form side */
+.cnx-auth-main { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 24px 24px; }
+.cnx-auth-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 44px;
+    border: 1px solid #e9ecf3;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 24px 60px rgba(17, 26, 51, .08);
+}
+.cnx-auth-logo-mobile { display: none; }
+.cnx-auth-card h2 { margin: 0 0 8px; font-size: 28px; font-weight: 700; letter-spacing: -.01em; }
+.cnx-auth-lead { margin: 0 0 28px; color: #5a6680; }
+.cnx-auth-lead strong { color: #111a33; }
+
+.cnx-auth-alert {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    border: 1px solid #bfe6cf;
+    border-radius: 14px;
+    background: #ecf8f1;
+    color: #145c36;
+}
+.cnx-auth-alert-icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #1f9d68;
+    color: #fff;
+    font-size: 14px;
+}
+.cnx-auth-alert p { margin: 4px 0 0; font-size: 14px; }
+.cnx-auth-alert a { color: #145c36; text-decoration: underline; }
+.cnx-auth-alert-error { border-color: #f1c7c7; background: #fdf0f0; color: #8f2424; }
+.cnx-auth-alert-error .cnx-auth-alert-icon { background: #d64545; font-weight: 700; }
+.cnx-auth-alert-error a { color: #8f2424; }
+
+.cnx-field { margin-bottom: 18px; }
+.cnx-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+.cnx-label-row label { color: #2a3550; font-size: 14px; font-weight: 600; }
+.cnx-label-row a { font-size: 13px; }
+.cnx-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.cnx-field > label:not(.cnx-check) { display: block; margin-bottom: 7px; color: #2a3550; font-size: 14px; font-weight: 600; }
+.cnx-input { position: relative; display: flex; align-items: center; }
+.cnx-input svg {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #8a94a8;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+.cnx-input input {
+    width: 100%;
+    height: 50px;
+    padding: 0 14px 0 44px;
+    border: 1px solid #d5dbe8;
+    border-radius: 12px;
+    background: #fff;
+    color: #111a33;
+    font: inherit;
+    font-size: 15px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+.cnx-input input::placeholder { color: #a3acbd; }
+.cnx-input input:hover { border-color: #b8c2d6; }
+.cnx-input input:focus { border-color: #2446d4; outline: none; box-shadow: 0 0 0 4px rgba(36, 70, 212, .12); }
+.cnx-input input:focus + .cnx-input-toggle,
+.cnx-input:focus-within svg { stroke: #2446d4; }
+.cnx-input input[type="password"],
+.cnx-input input[name^="password"] { padding-right: 64px; }
+.cnx-input-toggle {
+    position: absolute;
+    right: 8px;
+    padding: 6px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #2446d4;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.cnx-input-toggle:hover { background: #eef1fd; }
+.has-error .cnx-input input { border-color: #d64545; }
+.has-error .cnx-input input:focus { box-shadow: 0 0 0 4px rgba(214, 69, 69, .12); }
+.has-error .cnx-input svg { stroke: #d64545; }
+.cnx-field-error { display: flex; align-items: center; gap: 6px; margin: 7px 0 0; color: #c23434; font-size: 13px; font-weight: 500; }
+.cnx-field-error::before { content: "!"; display: inline-flex; flex: none; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: #d64545; color: #fff; font-size: 11px; font-weight: 700; }
+
+.cnx-check { display: flex; align-items: flex-start; gap: 10px; color: #3a4560; font-size: 14px; cursor: pointer; }
+.cnx-check input { position: absolute; opacity: 0; pointer-events: none; }
+.cnx-check-box {
+    position: relative;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    border: 1.5px solid #b8c2d6;
+    border-radius: 6px;
+    background: #fff;
+    transition: background-color .15s ease, border-color .15s ease;
+}
+.cnx-check input:checked + .cnx-check-box { border-color: #2446d4; background: #2446d4; }
+.cnx-check input:checked + .cnx-check-box::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.cnx-check input:focus-visible + .cnx-check-box { outline: 2px solid #2446d4; outline-offset: 2px; }
+.has-error .cnx-check-box { border-color: #d64545; }
+
+.cnx-auth-submit {
+    width: 100%;
+    height: 54px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 12px;
+    background: #2446d4;
+    box-shadow: 0 10px 24px rgba(36, 70, 212, .25);
+    color: #fff;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .15s ease, transform .15s ease;
+}
+.cnx-auth-submit:hover { background: #1b37ad; }
+.cnx-auth-submit:active { transform: translateY(1px); }
+.cnx-auth-switch { margin: 22px 0 0; color: #5a6680; text-align: center; }
+.cnx-auth-footnote { margin: 24px 0 0; color: #8a94a8; font-size: 13px; }
+.cnx-auth-footnote a { color: #5a6680; font-weight: 600; }
+
+/* Tablets and phones: one column, with the brand panel shrunk to a banner. */
+@media (max-width: 991px) {
+    .cnx-auth-shell { grid-template-columns: 1fr; }
+    .cnx-auth-brand-inner { min-height: 0; padding: 28px 32px 32px; }
+    .cnx-auth-brand-copy { margin-top: 28px; }
+    .cnx-auth-brand h1 { font-size: 26px; }
+    .cnx-auth-brand p { margin-bottom: 18px; font-size: 15px; }
+    .cnx-auth-points { grid-auto-flow: column; justify-content: start; gap: 18px; }
+    .cnx-auth-main { padding: 32px 20px 24px; }
+}
+@media (max-width: 600px) {
+    .cnx-auth-brand { display: none; }
+    .cnx-auth-logo-mobile { display: inline-flex; margin-bottom: 24px; padding: 0; background: none; }
+    .cnx-auth-main { justify-content: flex-start; padding: 20px 16px; }
+    .cnx-auth-card { padding: 28px 20px; border-radius: 20px; }
+    .cnx-auth-card h2 { font-size: 24px; }
+    .cnx-field-row { grid-template-columns: 1fr; gap: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cnx-input input, .cnx-auth-submit, .cnx-check-box { transition: none; }
+}
