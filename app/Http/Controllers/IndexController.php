@@ -47,7 +47,7 @@ class IndexController extends Controller
                 $query->where('category_id', $activeProduct->id);
             })
             ->inRandomOrder()
-            ->limit(20)
+            ->limit(8)
             ->get();
 
         $services = Item::query()
@@ -57,7 +57,7 @@ class IndexController extends Controller
                 $query->where('tenant_id', $activeSeller->id);
             })
             ->inRandomOrder()
-            ->limit(20)
+            ->limit(6)
             ->get();
 
         return view('frontend.index', [

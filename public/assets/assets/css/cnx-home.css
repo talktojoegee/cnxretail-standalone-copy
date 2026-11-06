@@ -67,12 +67,23 @@ a.dark-3 {
     transition: transform 8s ease-out;
 }
 .cnx-slide.is-active .cnx-slide-image { transform: scale(1); }
-.cnx-slide-image-portrait {
-    inset: 0 0 0 auto;
-    width: 58%;
+.cnx-slide-media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* Never narrower than 2/3 of the slide height, so the tall photo always fills by width.
+       The product card overlay depends on that (it would drift on portrait tablets otherwise). */
+    width: max(58%, calc(clamp(540px, 78vh, 720px) * .68));
+    overflow: hidden;
     -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
     mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
 }
+/* The wrapper zooms instead of the image, so the photo and its overlay move together. */
+.cnx-slide-media { transform: scale(1.06); transition: transform 8s ease-out; }
+.cnx-slide.is-active .cnx-slide-media { transform: scale(1); }
+.cnx-slide-media .cnx-slide-image,
+.cnx-slide.is-active .cnx-slide-media .cnx-slide-image { transform: none; transition: none; }
 .cnx-slide::after {
     content: "";
     position: absolute;
@@ -218,8 +229,7 @@ a.dark-3 {
         background: linear-gradient(180deg, rgba(13, 20, 38, .15) 0%, rgba(13, 20, 38, .6) 42%, rgba(13, 20, 38, .92) 100%);
     }
     .cnx-slide { min-height: 420px; }
-    .cnx-slide-image-portrait {
-        inset: 0;
+    .cnx-slide-media {
         width: 100%;
         -webkit-mask-image: none;
         mask-image: none;
@@ -242,6 +252,660 @@ a.dark-3 {
     .cnx-slide-image,
     .cnx-slide.is-active .cnx-slide-image { transform: none; transition: none; }
     .cnx-slide-copy { transform: none; }
+}
+
+
+/* Product card and arrow over the "Discover and Buy" photo.
+   .cnx-art matches the photo's rendered box (object-fit: cover, scaled to width, object-position 60% vertically),
+   so everything inside is positioned in the photo's own percentages. */
+.cnx-art {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 60%;
+    aspect-ratio: 1201 / 1800;
+    container-type: inline-size;
+    transform: translateY(-60%);
+    pointer-events: none;
+}
+.cnx-art-arrow { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 1px 2px rgba(13, 20, 38, .45)); }
+.cnx-art-arrow path:not([d^="M1"]) { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.cnx-slide.is-active .cnx-art-arrow path:not([d^="M1"]) { stroke-dashoffset: 0; transition: stroke-dashoffset .9s ease .9s; }
+.cnx-art-arrow marker path, .cnx-art-arrow circle { opacity: 0; }
+.cnx-slide.is-active .cnx-art-arrow marker path, .cnx-slide.is-active .cnx-art-arrow circle { opacity: .9; transition: opacity .3s ease 1.6s; }
+.cnx-art-card {
+    position: absolute;
+    left: 73.5%;
+    top: 37.5%;
+    width: 21%;
+    padding: .7em;
+    border-radius: 1.1em;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 1.2em 2.6em rgba(13, 20, 38, .32), 0 .2em .5em rgba(13, 20, 38, .12);
+    color: #15203a;
+    font-size: clamp(8px, 1.3cqw, 14px);
+    line-height: 1.3;
+    opacity: 0;
+    transform: translateY(.8em);
+}
+.cnx-slide.is-active .cnx-art-card { opacity: 1; transform: none; transition: opacity .6s ease .5s, transform .6s ease .5s; }
+.cnx-art-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .5em; }
+.cnx-art-top span { padding: .2em .6em; border-radius: 1em; background: #eef1fd; color: #2446d4; font-size: .78em; font-weight: 600; }
+.cnx-art-top i { color: #e4572e; font-size: .9em; }
+.cnx-art-card img { display: block; width: 100%; aspect-ratio: 1.25; object-fit: contain; border-radius: .7em; background: #f2f2f2; }
+.cnx-art-name { display: block; margin-top: .55em; font-size: .9em; font-weight: 600; }
+.cnx-art-price { display: block; margin-top: .1em; color: #2446d4; font-size: 1.05em; }
+.cnx-art-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4em;
+    margin-top: .6em;
+    padding: .5em;
+    border-radius: .6em;
+    background: #2446d4;
+    color: #fff;
+    font-size: .82em;
+    font-weight: 600;
+}
+.cnx-art-cart {
+    position: absolute;
+    top: -1em;
+    right: -1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4em;
+    height: 2.4em;
+    border: .18em solid #fff;
+    border-radius: 50%;
+    background: #15203a;
+    color: #fff;
+    font-size: 1em;
+    box-shadow: 0 .4em 1em rgba(13, 20, 38, .3);
+}
+.cnx-art-cart b {
+    position: absolute;
+    top: -.35em;
+    right: -.35em;
+    min-width: 1.35em;
+    padding: .05em .3em;
+    border-radius: 1em;
+    background: #2446d4;
+    font-size: .62em;
+    line-height: 1.4;
+    text-align: center;
+}
+/* Phones: keep the card and arrow attached to her phone. The text is narrowed on this slide
+   so the right-hand side of the photo, where her phone is, stays clear. */
+@media (max-width: 767px) {
+    .cnx-slide-has-art .cnx-slide-copy { max-width: 60%; }
+    .cnx-art { z-index: 2; }
+    /* No zoom here, so the card can sit above the dark text overlay instead of being dimmed by it. */
+    .cnx-slide-media, .cnx-slide.is-active .cnx-slide-media { transform: none; transition: none; }
+    .cnx-art-card {
+        left: 64%;
+        top: 29%;
+        width: 31%;
+        font-size: clamp(7.5px, 2.2cqw, 10px);
+    }
+    .cnx-art-cart { top: -.9em; right: -.6em; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cnx-slide-media, .cnx-slide.is-active .cnx-slide-media { transform: none; transition: none; }
+    .cnx-art-card, .cnx-slide.is-active .cnx-art-card { transition: none; }
+    .cnx-art-arrow path:not([d^="M1"]) { stroke-dashoffset: 0; transition: none; }
+}
+
+/* How it works */
+.cnx-how { padding: 96px 0; background: #fff; }
+.cnx-how-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+.cnx-how-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #eef1fd;
+    color: #2446d4;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.cnx-how-head h2 {
+    margin: 0 0 14px;
+    color: #15203a;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+}
+.cnx-how-head p { margin: 0; color: #4a5670; font-size: 17px; line-height: 1.6; }
+.cnx-how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.cnx-how-card {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 20px;
+}
+.cnx-how-card-buyers { border: 1px solid #e6eaf2; background: #f4f6fb; color: #15203a; }
+.cnx-how-card-vendors { background: #15203a; color: #fff; }
+.cnx-how-card-head { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+.cnx-how-icon {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: #2446d4;
+    color: #fff;
+    font-size: 22px;
+}
+.cnx-how-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #2446d4;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.cnx-how-card-vendors .cnx-how-label { color: #9fb2ff; }
+.cnx-how-card h3 { margin: 0; color: inherit; font-size: 22px; font-weight: 700; line-height: 1.3; }
+.cnx-how-steps { flex: 1; margin: 0 0 32px; padding: 0; list-style: none; }
+.cnx-how-steps li { position: relative; display: flex; gap: 18px; padding-bottom: 26px; }
+.cnx-how-steps li:last-child { padding-bottom: 0; }
+/* The line joining each step to the next. */
+.cnx-how-steps li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 44px;
+    bottom: 6px;
+    left: 19px;
+    width: 2px;
+    border-radius: 2px;
+    background: #d5dbe8;
+}
+.cnx-how-card-vendors .cnx-how-steps li:not(:last-child)::before { background: rgba(255, 255, 255, .18); }
+.cnx-how-num {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #2446d4;
+    border-radius: 50%;
+    background: #fff;
+    color: #2446d4;
+    font-size: 16px;
+    font-weight: 700;
+}
+.cnx-how-card-vendors .cnx-how-num { border-color: #fff; background: transparent; color: #fff; }
+.cnx-how-steps h4 { margin: 8px 0 6px; color: inherit; font-size: 17px; font-weight: 700; line-height: 1.35; }
+.cnx-how-steps p { margin: 0; color: #4a5670; font-size: 15px; line-height: 1.6; }
+.cnx-how-card-vendors .cnx-how-steps p { color: rgba(255, 255, 255, .75); }
+.cnx-how-button {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: #2446d4;
+    color: #fff !important;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color .2s ease;
+}
+.cnx-how-button:hover, .cnx-how-button:focus { background: #1b37ad; }
+.cnx-how-card-vendors .cnx-how-button { background: #fff; color: #15203a !important; }
+.cnx-how-card-vendors .cnx-how-button:hover, .cnx-how-card-vendors .cnx-how-button:focus { background: #dfe5fb; }
+.cnx-how-button:focus-visible { outline: 2px solid #2446d4; outline-offset: 2px; }
+.cnx-how-card-vendors .cnx-how-button:focus-visible { outline-color: #fff; }
+@media (max-width: 991px) {
+    .cnx-how-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 767px) {
+    .cnx-how { padding: 64px 0; }
+    .cnx-how-head { margin-bottom: 32px; }
+    .cnx-how-head p { font-size: 16px; }
+    .cnx-how-card { padding: 28px 22px; }
+    .cnx-how-card-head { margin-bottom: 26px; }
+    .cnx-how-card h3 { font-size: 20px; }
+}
+
+/* Featured products and services */
+.cnx-featured { padding: 96px 0; background: #f6f7fb; }
+.cnx-featured-services { background: #fff; }
+.cnx-featured-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px 32px;
+    margin-bottom: 32px;
+}
+.cnx-featured-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #2446d4;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+.cnx-featured-eyebrow::before { content: ""; width: 24px; height: 2px; border-radius: 2px; background: currentColor; }
+.cnx-featured-head h2 {
+    margin: 0 0 10px;
+    color: #111a33;
+    font-size: clamp(28px, 2.8vw, 40px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+}
+.cnx-featured-head p { max-width: 520px; margin: 0; color: #5a6680; font-size: 16px; line-height: 1.6; }
+.cnx-featured-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 11px 20px;
+    border: 1px solid #d5dbe8;
+    border-radius: 999px;
+    background: #fff;
+    color: #15203a !important;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: border-color .2s ease, color .2s ease, box-shadow .2s ease;
+}
+.cnx-featured-all:hover { border-color: #2446d4; color: #2446d4 !important; box-shadow: 0 6px 18px rgba(36, 70, 212, .12); }
+.cnx-featured-all i { font-size: 12px; transition: transform .2s ease; }
+.cnx-featured-all:hover i { transform: translateX(3px); }
+.cnx-featured-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.cnx-featured-filters a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 8px 18px;
+    border: 1px solid #e1e6f0;
+    border-radius: 999px;
+    background: #fff;
+    color: #3a4560;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.cnx-featured-filters a:hover { border-color: #2446d4; color: #2446d4; }
+.cnx-featured-filters a.is-active { border-color: #15203a; background: #15203a; color: #fff; }
+
+.cnx-product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.cnx-service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+/* Shared card shell */
+.cnx-product,
+.cnx-service {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid #e9ecf3;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(17, 26, 51, .04);
+    color: #111a33;
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.cnx-product { flex-direction: column; padding: 10px; }
+.cnx-service { flex-direction: row; align-items: stretch; padding: 10px; }
+.cnx-product:hover,
+.cnx-service:hover {
+    border-color: #dfe4ef;
+    box-shadow: 0 18px 40px rgba(17, 26, 51, .1);
+    transform: translateY(-4px);
+}
+.cnx-product:focus-visible,
+.cnx-service:focus-visible { outline: 2px solid #2446d4; outline-offset: 3px; }
+
+/* Image frames: every photo fills the same square frame, whatever its original shape. */
+.cnx-product-media,
+.cnx-service-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #f3f5f9;
+}
+.cnx-product-media { aspect-ratio: 1; }
+.cnx-service-media { flex: none; width: 112px; aspect-ratio: 1; align-self: center; }
+.cnx-product-media img,
+.cnx-service-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fills the frame, so photos with their own backgrounds don't show as a box inside it. */
+    transition: transform .35s ease;
+}
+.cnx-product:hover .cnx-product-media img,
+.cnx-service:hover .cnx-service-media img { transform: scale(1.05); }
+.cnx-product-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8eefc;
+    color: #2446d4;
+    font-size: 40px;
+    font-weight: 700;
+}
+.cnx-product-category {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 2px 8px rgba(17, 26, 51, .08);
+    color: #2446d4;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Card text: fixed slots so names, vendors and prices line up across a row. */
+.cnx-product-body,
+.cnx-service-body { display: flex; flex: 1; flex-direction: column; min-width: 0; }
+.cnx-product-body { padding: 16px 8px 6px; }
+.cnx-service-body { padding: 6px 6px 4px 18px; }
+.cnx-product-vendor {
+    overflow: hidden;
+    margin-bottom: 6px;
+    color: #7a869c;
+    font-size: 13px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.cnx-product h3,
+.cnx-service h3 {
+    display: -webkit-box;
+    min-height: 2.8em; /* Always two lines tall. */
+    margin: 0 0 14px;
+    overflow: hidden;
+    color: #111a33;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.cnx-product-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+}
+.cnx-product-price { color: #111a33; font-size: 18px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.cnx-product-price small { margin-right: 2px; color: #7a869c; font-size: 12px; font-weight: 500; letter-spacing: 0; }
+.cnx-product-go {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #eef1fd;
+    color: #2446d4;
+    font-size: 13px;
+    transition: background-color .25s ease, color .25s ease, transform .25s ease;
+}
+.cnx-product:hover .cnx-product-go,
+.cnx-service:hover .cnx-product-go { background: #2446d4; color: #fff; transform: rotate(-45deg); }
+
+.cnx-featured-empty {
+    padding: 44px 24px;
+    border: 1px dashed #d5dbe8;
+    border-radius: 20px;
+    background: #fff;
+    color: #5a6680;
+    text-align: center;
+}
+.cnx-featured-empty a { color: #2446d4; font-weight: 600; }
+
+@media (max-width: 1199px) {
+    .cnx-product-grid { grid-template-columns: repeat(3, 1fr); }
+    .cnx-service-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 991px) {
+    .cnx-product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 767px) {
+    .cnx-featured { padding: 64px 0; }
+    .cnx-featured-head { margin-bottom: 24px; }
+    .cnx-featured-all { min-height: 40px; padding: 8px 16px; font-size: 14px; }
+    .cnx-product-grid { gap: 12px; }
+    .cnx-service-grid { grid-template-columns: 1fr; gap: 12px; }
+    .cnx-product { padding: 8px; border-radius: 16px; }
+    .cnx-product-media { border-radius: 11px; }
+    .cnx-product-category { top: 8px; left: 8px; padding: 4px 8px; font-size: 11px; }
+    .cnx-product-body { padding: 12px 4px 4px; }
+    .cnx-product-vendor { font-size: 12px; }
+    .cnx-product h3, .cnx-service h3 { font-size: 14px; margin-bottom: 10px; }
+    .cnx-product-price { font-size: 15px; }
+    .cnx-product-go { width: 32px; height: 32px; font-size: 11px; }
+    .cnx-service { padding: 8px; border-radius: 16px; }
+    .cnx-service-media { width: 96px; border-radius: 11px; }
+    .cnx-service-body { padding: 4px 4px 2px 14px; }
+    /* Let the filter chips scroll sideways instead of wrapping into many rows. */
+    .cnx-featured-filters { flex-wrap: nowrap; margin-right: -15px; padding-right: 15px; overflow-x: auto; scrollbar-width: none; }
+    .cnx-featured-filters a { flex: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cnx-product, .cnx-service, .cnx-product-go, .cnx-product-media img, .cnx-service-media img { transition: none; }
+    .cnx-product:hover, .cnx-service:hover { transform: none; }
+    .cnx-product:hover .cnx-product-media img, .cnx-service:hover .cnx-service-media img { transform: none; }
+}
+
+/* Testimonials (shares its heading styles with "How it works") */
+.cnx-reviews { padding: 96px 0; background: #f6f7fb; }
+.cnx-reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cnx-review {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 32px;
+    border: 1px solid #e9ecf3;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(17, 26, 51, .04);
+}
+.cnx-review-top { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.cnx-review-mark {
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #eef1fd;
+    color: #2446d4;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 44px;
+    line-height: 1.15;
+}
+.cnx-review-stars { display: inline-flex; gap: 2px; margin-left: auto; }
+.cnx-review-stars svg { width: 17px; height: 17px; fill: #dfe4ee; }
+.cnx-review-stars svg.is-on { fill: #f5a524; }
+.cnx-review blockquote {
+    flex: 1;
+    margin: 0 0 26px;
+    padding: 0;
+    border: 0;
+    background: none; /* The theme gives blockquotes a tinted box and a serif font. */
+    font-family: inherit;
+    quotes: none;
+    color: #2a3550;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 1.7;
+}
+.cnx-review blockquote::before,
+.cnx-review blockquote::after { content: none; }
+.cnx-review figcaption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #eef1f6;
+}
+.cnx-review-avatar {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #15203a;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    object-fit: cover;
+}
+.cnx-review figcaption strong { display: block; color: #111a33; font-size: 15px; font-weight: 700; }
+.cnx-review figcaption small { display: block; margin-top: 2px; color: #7a869c; font-size: 13px; }
+@media (max-width: 991px) {
+    /* Tablets and phones: a swipeable row instead of a tall stack. */
+    .cnx-reviews-grid {
+        display: flex;
+        gap: 16px;
+        margin: 0 -15px;
+        padding: 4px 15px 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 0 15px;
+        scrollbar-width: none;
+    }
+    .cnx-reviews-grid::-webkit-scrollbar { display: none; }
+    .cnx-review { flex: 0 0 min(420px, 84%); scroll-snap-align: start; }
+}
+@media (max-width: 767px) {
+    .cnx-reviews { padding: 64px 0; }
+    .cnx-review { padding: 24px; }
+    .cnx-review blockquote { font-size: 15px; }
+}
+
+/* Sign up call to action */
+.cnx-signup { padding: 0 0 96px; background: #f6f7fb; }
+.cnx-reviews + .cnx-signup { padding-top: 0; }
+.cnx-featured-services + .cnx-signup { padding-top: 96px; }
+.cnx-signup-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: center;
+    gap: 48px;
+    overflow: hidden;
+    padding: 64px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #15203a 0%, #1b2f7a 60%, #2446d4 100%);
+    color: #fff;
+}
+/* Soft decorative rings in the corner. */
+.cnx-signup-panel::before,
+.cnx-signup-panel::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.cnx-signup-panel::before { top: -140px; right: -100px; width: 360px; height: 360px; }
+.cnx-signup-panel::after { top: -60px; right: -20px; width: 200px; height: 200px; }
+.cnx-signup-copy, .cnx-signup-actions { position: relative; z-index: 1; }
+.cnx-signup-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    color: #c9d4ff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+.cnx-signup h2 {
+    margin: 0 0 14px;
+    color: #fff;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+}
+.cnx-signup-copy > p { max-width: 540px; margin: 0 0 24px; color: rgba(255, 255, 255, .8); font-size: 17px; line-height: 1.6; }
+.cnx-signup-points { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 0; padding: 0; list-style: none; }
+.cnx-signup-points li { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 15px; font-weight: 500; }
+.cnx-signup-points i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .16);
+    font-size: 10px;
+}
+.cnx-signup-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; justify-self: end; }
+.cnx-signup-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 16px 32px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(5, 10, 30, .25);
+    color: #15203a !important;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.cnx-signup-button:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(5, 10, 30, .3); }
+.cnx-signup-button i { font-size: 14px; }
+.cnx-signup-link { color: #fff !important; font-size: 15px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.cnx-signup-login { color: rgba(255, 255, 255, .7); font-size: 14px; }
+.cnx-signup-login a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cnx-signup a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+@media (max-width: 991px) {
+    .cnx-signup-panel { grid-template-columns: 1fr; gap: 32px; padding: 48px 40px; }
+    .cnx-signup-actions { justify-self: start; }
+}
+@media (max-width: 767px) {
+    .cnx-signup { padding-bottom: 64px; }
+    .cnx-featured-services + .cnx-signup { padding-top: 64px; }
+    .cnx-signup-panel { padding: 36px 24px; border-radius: 20px; }
+    .cnx-signup-copy > p { font-size: 16px; }
+    .cnx-signup-points { flex-direction: column; }
+    .cnx-signup-actions { align-items: stretch; width: 100%; text-align: center; }
+    .cnx-signup-button { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cnx-signup-button { transition: none; }
+    .cnx-signup-button:hover { transform: none; }
 }
 
 .cnx-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 4px 0 22px; }

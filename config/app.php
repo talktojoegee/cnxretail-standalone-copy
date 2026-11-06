@@ -18,6 +18,9 @@ return [
     'paystack_public_key'=>env('PAYSTACK_PUBLIC_KEY',''),
     'paystack_secret_key'=>env('PAYSTACK_SECRET_KEY',''),
 
+    // Business address, shown on the contact page.
+    'address' => env('APP_ADDRESS', '2A Iller Cres, Maitama, Abuja 904101, Federal Capital Territory'),
+
 
     /*
     |--------------------------------------------------------------------------

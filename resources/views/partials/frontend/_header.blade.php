@@ -18,11 +18,6 @@
 
                         <ul class="nav-menu nav-menu-social align-to-right">
 
-                            <li>
-                                <a href="{{route('homepage')}}/#download-app">
-                                    <i class="ti-apple mr-1"></i>Download App
-                                </a>
-                            </li>
                             <li class="add-listing dark-bg">
                                 <a href="{{route('login')}}" >
                                     <i class="ti-lock mr-1"></i> Login

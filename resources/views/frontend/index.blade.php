@@ -25,8 +25,9 @@
                 'button' => 'Sign Up',
                 'link' => route('register'),
                 'image' => '/assets/assets/img/hero/buyer-on-phone.jpg',
-                'focus' => '50% 68%',
+                'focus' => '50% 60%', // The product card overlay is aligned to this, so change both together.
                 'portrait' => true, // Tall photo: shown as a panel on the right so it isn't over-zoomed.
+                'productCard' => true, // Product card and arrow showing what she's browsing (wider screens only).
                 'source' => 'https://nappy.co/photo/outdoor-relaxation-with-smartphone%2BQUNbaXfgQhv5g82trB-iR', // CC0, from Nappy
             ],
             [
@@ -58,8 +59,17 @@
         <div class="cnx-showcase-track" data-showcase-track aria-live="off">
             @foreach($heroSlides as $slide)
                 @php $headingTag = $loop->first ? 'h1' : 'h2'; @endphp
-                <div class="cnx-slide {{ $loop->first ? 'is-active' : '' }}" data-showcase-slide role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
-                    <img class="cnx-slide-image {{ ($slide['portrait'] ?? false) ? 'cnx-slide-image-portrait' : '' }}" src="{{ $slide['image'] }}" alt="" style="object-position: {{ $slide['focus'] }};" @unless($loop->first) loading="lazy" @endunless>
+                <div class="cnx-slide {{ $loop->first ? 'is-active' : '' }} {{ ($slide['productCard'] ?? false) ? 'cnx-slide-has-art' : '' }}" data-showcase-slide role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} of {{ $loop->count }}">
+                    @if($slide['portrait'] ?? false)
+                        <div class="cnx-slide-media">
+                            <img class="cnx-slide-image" src="{{ $slide['image'] }}" alt="" style="object-position: {{ $slide['focus'] }};" @unless($loop->first) loading="lazy" @endunless>
+                            @if($slide['productCard'] ?? false)
+                                @include('partials.frontend._hero-product-card')
+                            @endif
+                        </div>
+                    @else
+                        <img class="cnx-slide-image" src="{{ $slide['image'] }}" alt="" style="object-position: {{ $slide['focus'] }};" @unless($loop->first) loading="lazy" @endunless>
+                    @endif
                     <div class="container cnx-slide-inner">
                         <div class="cnx-slide-copy">
                             <span class="cnx-slide-audience">{{ $slide['audience'] }}</span>
@@ -90,283 +100,256 @@
             </div>
         </div>
     </section>
-    <section class="how-it-works">
+    @php
+        $howItWorks = [
+            [
+                'class' => 'cnx-how-card-buyers',
+                'icon' => 'ti-shopping-cart',
+                'label' => 'For buyers',
+                'title' => 'Shop from vendors across Markethub',
+                'steps' => [
+                    ['Find what you need', 'Browse categories, search for products and services, or visit a vendor’s store.'],
+                    ['Add to cart and check out', 'Put items from different vendors in one cart, then check out with your name, phone number and delivery address.'],
+                    ['Get your order', 'Each vendor receives your order and contacts you to confirm delivery.'],
+                ],
+                'button' => 'Browse the marketplace',
+                'link' => route('marketplace'),
+            ],
+            [
+                'class' => 'cnx-how-card-vendors',
+                'icon' => 'ti-bag',
+                'label' => 'For vendors',
+                'title' => 'Sell online with your own store',
+                'steps' => [
+                    ['Create your store', 'Sign up and set up your business. Your products get their own store page on Markethub.'],
+                    ['List products and services', 'Add photos, prices and categories so buyers can find what you sell.'],
+                    ['Receive orders', 'Buyers order straight from your store, and you manage invoices and receipts from your dashboard.'],
+                ],
+                'button' => 'Start selling',
+                'link' => route('register'),
+            ],
+        ];
+    @endphp
+    <section class="cnx-how" id="how-it-works">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-9">
-                    <div class="sec-heading">
-                        <h2>How It <span class="theme-cl-2">Works?</span></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
+            <div class="cnx-how-head">
+                <span class="cnx-how-eyebrow">How it works</span>
+                <h2>Buy or sell on Markethub in three simple steps</h2>
+                <p>Whether you’re shopping or running a business, getting started takes minutes.</p>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 col-sm-4">
-                    <div class="working-process"><span class="process-img"><img src="/assets/assets/img/step-1.png" class="img-responsive" alt=""><span class="process-num">01</span></span>
-                        <h4>Create An Account</h4>
-                        <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="working-process"><span class="process-img"><img src="/assets/assets/img/step-2.png" class="img-responsive" alt=""><span class="process-num">02</span></span>
-                        <h4>Search Jobs</h4>
-                        <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="working-process"><span class="process-img"><img src="/assets/assets/img/step-3.png" class="img-responsive" alt=""><span class="process-num">03</span></span>
-                        <h4>Save &amp; Apply</h4>
-                        <p>Post a job to tell us about your project. We'll quickly match you with the right freelancers find place best.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="min-sec">
-        <div class="container">
-
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-9">
-                    <div class="sec-heading">
-                        <h2>Featured <span class="theme-cl-2">Products</span></h2>
-                        <p>These products are randomly selected from our various vendors on the platform.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cnx-tabs" id="featured-products">
-                <a class="{{ $activeProduct ? '' : 'is-active' }}" href="{{ route('homepage', array_filter(['services' => request('services')])) }}#featured-products">All categories</a>
-                @foreach($productCategories as $category)
-                    <a class="{{ optional($activeProduct)->id === $category->id ? 'is-active' : '' }}" href="{{ route('homepage', array_filter(['products' => $category->slug, 'services' => request('services')])) }}#featured-products">{{ $category->category_name }}</a>
+            <div class="cnx-how-grid">
+                @foreach($howItWorks as $card)
+                    <article class="cnx-how-card {{ $card['class'] }}">
+                        <div class="cnx-how-card-head">
+                            <span class="cnx-how-icon"><i class="{{ $card['icon'] }}" aria-hidden="true"></i></span>
+                            <div>
+                                <span class="cnx-how-label">{{ $card['label'] }}</span>
+                                <h3>{{ $card['title'] }}</h3>
+                            </div>
+                        </div>
+                        <ol class="cnx-how-steps">
+                            @foreach($card['steps'] as [$stepTitle, $stepText])
+                                <li>
+                                    <span class="cnx-how-num" aria-hidden="true">{{ $loop->iteration }}</span>
+                                    <div>
+                                        <h4>{{ $stepTitle }}</h4>
+                                        <p>{{ $stepText }}</p>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ol>
+                        <a href="{{ $card['link'] }}" class="cnx-how-button">{{ $card['button'] }} <i class="ti-arrow-right" aria-hidden="true"></i></a>
+                    </article>
                 @endforeach
             </div>
-
-            <div class="row justify-content-center">
-                @forelse($products as $item)
-                    @php $photo = optional($item->getItemGalleryImages->first())->attachment; @endphp
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                        <div class="job_grid_02">
-                            <div class="blog-thumb">
-                                <a href="{{ route('view-item', $item->slug) }}">
-                                    @if($photo)
-                                        <img src="/assets/drive/{{ $photo }}" class="img-fluid" alt="{{ $item->item_name }}">
-                                    @else
-                                        <span class="cnx-letter">{{ strtoupper(substr($item->item_name, 0, 1)) }}</span>
-                                    @endif
-                                </a>
-                            </div>
-                            <div class="jb_grid_01_caption">
-                                <h4 class="_jb_title">
-                                    <a href="{{ route('view-item', $item->slug) }}" title="{{ $item->item_name }}">{{ $item->item_name }}</a>
-                                </h4>
-                            </div>
-                            <div class="jb_grid_01_footer">
-                                <a href="{{ route('view-item', $item->slug) }}" class="_jb_apply">View product</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="col-12 text-center"><p>No products in this category yet.</p></div>
-                @endforelse
-            </div>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="mt-3 text-center">
-                        @if($activeProduct)
-                            <a href="{{ route('product-category', $activeProduct->slug) }}" class="_browse_more-2 light">View all in {{ $activeProduct->category_name }}</a>
-                        @else
-                            <a href="{{ route('marketplace') }}" class="_browse_more-2 light">View all products</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
-    <section class="light-w" id="featured-services">
+    @php
+        $nairaPrice = fn ($amount) => '₦'.number_format((float) $amount, fmod((float) $amount, 1) ? 2 : 0);
+    @endphp
+    <section class="cnx-featured" id="featured-products">
         <div class="container">
-
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-9">
-                    <div class="sec-heading">
-                        <h2>Featured <span class="theme-cl-2">Services</span></h2>
-                        <p>Services listed by sellers on the platform.</p>
-                    </div>
+            <div class="cnx-featured-head">
+                <div>
+                    <span class="cnx-featured-eyebrow">Marketplace</span>
+                    <h2>Featured products</h2>
+                    <p>A selection of products from vendors on Markethub.</p>
                 </div>
+                @if($activeProduct)
+                    <a href="{{ route('product-category', $activeProduct->slug) }}" class="cnx-featured-all">View all in {{ $activeProduct->category_name }} <i class="ti-arrow-right" aria-hidden="true"></i></a>
+                @else
+                    <a href="{{ route('marketplace') }}" class="cnx-featured-all">View all products <i class="ti-arrow-right" aria-hidden="true"></i></a>
+                @endif
             </div>
 
-            <div class="cnx-tabs">
-                <a class="{{ $activeSeller ? '' : 'is-active' }}" href="{{ route('homepage', array_filter(['products' => request('products')])) }}#featured-services">All services</a>
-                @foreach($serviceSellers as $seller)
-                    <a class="{{ optional($activeSeller)->id === $seller->id ? 'is-active' : '' }}" href="{{ route('homepage', array_filter(['products' => request('products'), 'services' => $seller->slug])) }}#featured-services">{{ trim($seller->company_name) }}</a>
-                @endforeach
-            </div>
+            @if($productCategories->isNotEmpty())
+                <nav class="cnx-featured-filters" aria-label="Filter products by category">
+                    <a class="{{ $activeProduct ? '' : 'is-active' }}" href="{{ route('homepage', array_filter(['services' => request('services')])) }}#featured-products" @unless($activeProduct) aria-current="true" @endunless>All</a>
+                    @foreach($productCategories as $category)
+                        @php $isActive = optional($activeProduct)->id === $category->id; @endphp
+                        <a class="{{ $isActive ? 'is-active' : '' }}" href="{{ route('homepage', array_filter(['products' => $category->slug, 'services' => request('services')])) }}#featured-products" @if($isActive) aria-current="true" @endif>{{ $category->category_name }}</a>
+                    @endforeach
+                </nav>
+            @endif
 
-            <div class="row justify-content-center">
-                @forelse($services as $item)
-                    @php $photo = optional($item->getItemGalleryImages->first())->attachment; @endphp
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                        <div class="job_grid_02">
-                            <div class="blog-thumb">
-                                <a href="{{ route('view-item', $item->slug) }}">
-                                    @if($photo)
-                                        <img src="/assets/drive/{{ $photo }}" class="img-fluid" alt="{{ $item->item_name }}">
-                                    @else
-                                        <span class="cnx-letter">{{ strtoupper(substr($item->item_name, 0, 1)) }}</span>
-                                    @endif
-                                </a>
+            @if($products->isNotEmpty())
+                <div class="cnx-product-grid">
+                    @foreach($products as $item)
+                        @php $photo = optional($item->getItemGalleryImages->first())->attachment; @endphp
+                        <a class="cnx-product" href="{{ route('view-item', $item->slug) }}">
+                            <div class="cnx-product-media">
+                                @if($photo)
+                                    <img src="/assets/drive/{{ $photo }}" alt="" loading="lazy">
+                                @else
+                                    <span class="cnx-product-letter" aria-hidden="true">{{ strtoupper(substr($item->item_name, 0, 1)) }}</span>
+                                @endif
+                                @if($item->getCategory)
+                                    <span class="cnx-product-category">{{ $item->getCategory->category_name }}</span>
+                                @endif
                             </div>
-                            <div class="jb_grid_01_caption">
-                                <h4 class="_jb_title">
-                                    <a href="{{ route('view-item', $item->slug) }}" title="{{ $item->item_name }}">{{ $item->item_name }}</a>
-                                </h4>
-                                <div class="cnx-card-meta">{{ $item->getTenant->company_name ?? '' }}</div>
-                            </div>
-                            <div class="jb_grid_01_footer">
-                                <a href="{{ route('view-item', $item->slug) }}" class="_jb_apply">View service</a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="col-12 text-center"><p>No services from this seller yet.</p></div>
-                @endforelse
-            </div>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="mt-3">
-                        @if($activeSeller)
-                            <a href="{{ route('vendor-store', $activeSeller->slug) }}" class="_browse_more-2 light">View all from {{ trim($activeSeller->company_name) }}</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <section class="gray-light">
-        <div class="container">
-
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-md-9">
-                    <div class="sec-heading">
-                        <h2>What People <span class="theme-cl-2">Saying</span></h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-12 col-md-12">
-                    <div class="owl-carousel owl-theme middle-arrow-hover" id="reviews-slide">
-
-                        <!-- Single Review -->
-                        <div class="item testimonial-center">
-                            <div class="smart-tes-author">
-                                <div class="st-author-box">
-                                    <div class="st-author-thumb">
-                                        <img src="assets/img/team-1.jpg" class="img-fluid" alt="" />
-                                    </div>
-                                    <div class="st-author-info">
-                                        <h4 class="st-author-title">Adam Williams</h4>
-                                        <span class="st-author-subtitle theme-cl">CEO Of Microwoft</span>
-                                    </div>
+                            <div class="cnx-product-body">
+                                <span class="cnx-product-vendor">{{ trim($item->getTenant->company_name ?? '') }}</span>
+                                <h3>{{ $item->item_name }}</h3>
+                                <div class="cnx-product-foot">
+                                    <strong class="cnx-product-price">{{ $nairaPrice($item->selling_price) }}</strong>
+                                    <span class="cnx-product-go" aria-hidden="true"><i class="ti-arrow-right"></i></span>
                                 </div>
                             </div>
-                            <div class="smart-tes-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Review -->
-                        <div class="item testimonial-center">
-                            <div class="smart-tes-author">
-                                <div class="st-author-box">
-                                    <div class="st-author-thumb">
-                                        <img src="assets/img/team-2.jpg" class="img-fluid" alt="" />
-                                    </div>
-                                    <div class="st-author-info">
-                                        <h4 class="st-author-title">Lilly Wikdoner</h4>
-                                        <span class="st-author-subtitle theme-cl">Content Writer</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="smart-tes-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Review -->
-                        <div class="item testimonial-center">
-                            <div class="smart-tes-author">
-                                <div class="st-author-box">
-                                    <div class="st-author-thumb">
-                                        <img src="assets/img/team-3.jpg" class="img-fluid" alt="" />
-                                    </div>
-                                    <div class="st-author-info">
-                                        <h4 class="st-author-title">Shaurya Williams</h4>
-                                        <span class="st-author-subtitle theme-cl">Manager Of Doodle</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="smart-tes-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                            </div>
-                        </div>
-
-                        <!-- Single Review -->
-                        <div class="item testimonial-center">
-                            <div class="smart-tes-author">
-                                <div class="st-author-box">
-                                    <div class="st-author-thumb">
-                                        <img src="assets/img/team-4.jpg" class="img-fluid" alt="" />
-                                    </div>
-                                    <div class="st-author-info">
-                                        <h4 class="st-author-title">Shrithi Setthi</h4>
-                                        <span class="st-author-subtitle theme-cl">CEO Of Applio</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="smart-tes-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <section id="download-app">
-        <div class="container">
-            <div class="row align-items-center">
-
-                <div class="col-lg-6 col-md-6">
-                    <div class="_setup_process">
-                        <h2>Download App Free App For <span class="theme-cl-2">Android And IPhone</span></h2>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                    </div>
-                    <div class="btn-box clearfix mt-5">
-                        <a href="index.html" class="download-btn play-store">
-                            <i class="fa fa-android"></i>
-                            <span>Download on</span>
-                            <h3>Google Play</h3>
                         </a>
+                    @endforeach
+                </div>
+            @else
+                <div class="cnx-featured-empty">No products in this category yet. <a href="{{ route('marketplace') }}">Browse the marketplace</a></div>
+            @endif
+        </div>
+    </section>
 
-                        <a href="index.html" class="download-btn app-store">
-                            <i class="fa fa-apple"></i>
-                            <span>Download on</span>
-                            <h3>App Store</h3>
+    <section class="cnx-featured cnx-featured-services" id="featured-services">
+        <div class="container">
+            <div class="cnx-featured-head">
+                <div>
+                    <span class="cnx-featured-eyebrow">Services</span>
+                    <h2>Featured services</h2>
+                    <p>Find help from businesses on Markethub, from repairs to photography.</p>
+                </div>
+                @if($activeSeller)
+                    <a href="{{ route('vendor-store', $activeSeller->slug) }}" class="cnx-featured-all">View all from {{ trim($activeSeller->company_name) }} <i class="ti-arrow-right" aria-hidden="true"></i></a>
+                @endif
+            </div>
+
+            @if($serviceSellers->isNotEmpty())
+                <nav class="cnx-featured-filters" aria-label="Filter services by provider">
+                    <a class="{{ $activeSeller ? '' : 'is-active' }}" href="{{ route('homepage', array_filter(['products' => request('products')])) }}#featured-services" @unless($activeSeller) aria-current="true" @endunless>All providers</a>
+                    @foreach($serviceSellers as $seller)
+                        @php $isActive = optional($activeSeller)->id === $seller->id; @endphp
+                        <a class="{{ $isActive ? 'is-active' : '' }}" href="{{ route('homepage', array_filter(['products' => request('products'), 'services' => $seller->slug])) }}#featured-services" @if($isActive) aria-current="true" @endif>{{ trim($seller->company_name) }}</a>
+                    @endforeach
+                </nav>
+            @endif
+
+            @if($services->isNotEmpty())
+                <div class="cnx-service-grid">
+                    @foreach($services as $item)
+                        @php $photo = optional($item->getItemGalleryImages->first())->attachment; @endphp
+                        <a class="cnx-service" href="{{ route('view-item', $item->slug) }}">
+                            <div class="cnx-service-media">
+                                @if($photo)
+                                    <img src="/assets/drive/{{ $photo }}" alt="" loading="lazy">
+                                @else
+                                    <span class="cnx-product-letter" aria-hidden="true">{{ strtoupper(substr($item->item_name, 0, 1)) }}</span>
+                                @endif
+                            </div>
+                            <div class="cnx-service-body">
+                                <span class="cnx-product-vendor">{{ trim($item->getTenant->company_name ?? '') }}</span>
+                                <h3>{{ $item->item_name }}</h3>
+                                <div class="cnx-product-foot">
+                                    <span class="cnx-product-price"><small>From</small> {{ $nairaPrice($item->selling_price) }}</span>
+                                    <span class="cnx-product-go" aria-hidden="true"><i class="ti-arrow-right"></i></span>
+                                </div>
+                            </div>
                         </a>
-                    </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="cnx-featured-empty">No services from this provider yet.</div>
+            @endif
+        </div>
+    </section>
+    @php
+        $testimonials = config('testimonials.items', []);
+        // Mock testimonials so the section can be designed locally. They are made up, so they
+        // never show on the live site: add real ones to config/testimonials.php for that.
+        if (empty($testimonials) && app()->environment('local')) {
+            $testimonials = [
+                ['quote' => 'Setting up my store took one afternoon. Now customers outside Kano can find my bags and order without me posting everywhere.', 'name' => 'Musa A.', 'role' => 'Vendor, Kano Leather Works', 'rating' => 5],
+                ['quote' => 'I bought a power bank and headphones from two different vendors in one checkout. Both sellers called me the same day to arrange delivery.', 'name' => 'Chioma O.', 'role' => 'Buyer, Lagos', 'rating' => 5],
+                ['quote' => 'I list my repair services with clear prices, so customers know what to expect before they call. It has made my day much easier.', 'name' => 'Tunde B.', 'role' => 'Vendor, FixIt Gadget Repairs', 'rating' => 4],
+            ];
+        }
+    @endphp
+    @if(!empty($testimonials))
+        <section class="cnx-reviews" aria-labelledby="cnx-reviews-title">
+            <div class="container">
+                <div class="cnx-how-head">
+                    <span class="cnx-how-eyebrow">Testimonials</span>
+                    <h2 id="cnx-reviews-title">What vendors and buyers say</h2>
+                    <p>Hear from the people selling and shopping on Markethub.</p>
                 </div>
 
-                <div class="col-lg-6 col-md-6">
-                    <img src="/assets/assets/img/app.png" class="img-fluid" alt="">
+                <div class="cnx-reviews-grid">
+                    @foreach($testimonials as $review)
+                        <figure class="cnx-review">
+                            <div class="cnx-review-top">
+                                <span class="cnx-review-mark" aria-hidden="true">“</span>
+                                @if(!empty($review['rating']))
+                                    @php $stars = max(1, min(5, (int) $review['rating'])); @endphp
+                                    <span class="cnx-review-stars" role="img" aria-label="Rated {{ $stars }} out of 5">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <svg class="{{ $i <= $stars ? 'is-on' : '' }}" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8z"/></svg>
+                                        @endfor
+                                    </span>
+                                @endif
+                            </div>
+                            <blockquote>{{ $review['quote'] }}</blockquote>
+                            <figcaption>
+                                @if(!empty($review['photo']))
+                                    <img class="cnx-review-avatar" src="{{ $review['photo'] }}" alt="">
+                                @else
+                                    @php
+                                        $initials = collect(preg_split('/\s+/', trim($review['name'])))->filter()->take(2)->map(fn ($part) => mb_strtoupper(mb_substr($part, 0, 1)))->implode('');
+                                    @endphp
+                                    <span class="cnx-review-avatar" aria-hidden="true">{{ $initials }}</span>
+                                @endif
+                                <span>
+                                    <strong>{{ $review['name'] }}</strong>
+                                    <small>{{ $review['role'] }}</small>
+                                </span>
+                            </figcaption>
+                        </figure>
+                    @endforeach
                 </div>
-
+            </div>
+        </section>
+    @endif
+    <section class="cnx-signup" id="sign-up" aria-labelledby="cnx-signup-title">
+        <div class="container">
+            <div class="cnx-signup-panel">
+                <div class="cnx-signup-copy">
+                    <span class="cnx-signup-eyebrow">Join Markethub</span>
+                    <h2 id="cnx-signup-title">Ready to buy or sell? Sign up now.</h2>
+                    <p>Create your account in minutes. Shop from vendors across Markethub, or open your own store and start receiving orders.</p>
+                    <ul class="cnx-signup-points">
+                        <li><i class="ti-check" aria-hidden="true"></i> Your own store page</li>
+                        <li><i class="ti-check" aria-hidden="true"></i> Products and services in one place</li>
+                        <li><i class="ti-check" aria-hidden="true"></i> Invoices and receipts built in</li>
+                    </ul>
+                </div>
+                <div class="cnx-signup-actions">
+                    <a href="{{ route('register') }}" class="cnx-signup-button">Sign up now <i class="ti-arrow-right" aria-hidden="true"></i></a>
+                    <a href="{{ route('marketplace') }}" class="cnx-signup-link">Or browse the marketplace first</a>
+                    <span class="cnx-signup-login">Already have an account? <a href="{{ route('login') }}">Log in</a></span>
+                </div>
             </div>
         </div>
     </section>
