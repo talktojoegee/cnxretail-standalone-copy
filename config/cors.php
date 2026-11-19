@@ -1,5 +1,7 @@
 <?php
 
+$frontend = array_values(array_filter(array_map('trim', explode(',', (string) env('FRONTEND_URL', '*')))));
+
 return [
 
     /*
@@ -7,11 +9,9 @@ return [
     | Cross-Origin Resource Sharing (CORS) Configuration
     |--------------------------------------------------------------------------
     |
-    | Here you may configure your settings for cross-origin resource sharing
-    | or "CORS". This determines what cross-origin operations may execute
-    | in web browsers. You are free to adjust these settings as needed.
-    |
-    | To learn more: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+    | Configure allowed origins for the Next.js frontends that call /api/*.
+    | Set FRONTEND_URL to a comma-separated list (e.g. http://localhost:3000).
+    | Bearer JWT auth does not require credentialed cookies.
     |
     */
 
@@ -19,13 +19,13 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => $frontend === [] ? ['*'] : $frontend,
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => [],
+    'exposed_headers' => ['X-Cart-Token'],
 
     'max_age' => 0,
 

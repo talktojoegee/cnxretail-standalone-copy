@@ -1,0 +1,921 @@
+{
+  // CNXRetail — screenshot-derived UI design system
+  // Version: 1.0.0
+  // Format: JSONC (JSON with comments)
+  // Notes:
+  // - Colours and dimensions are approximate visual estimates from the supplied screenshot.
+  // - Dark mode and responsive behaviours are implementation recommendations, not visible in the screenshot.
+  // - The design uses two core colour families: primary amber and secondary warm neutral.
+  // - Additional neutrals and semantic accents support readability and status communication.
+
+  "meta": {
+    "name": "CNXRetail",
+    "version": "1.0.0",
+    "type": "SaaS CRM dashboard design system",
+    "source": "User-provided dashboard screenshot",
+    "visualStyle": "Modern minimalist, warm, professional, data-focused",
+    "designIntent": [
+      "Approachable business software with a premium, uncluttered appearance",
+      "Clear information hierarchy and scannable financial data",
+      "Warm amber brand identity balanced by cream and white surfaces",
+      "Consistent reusable patterns across CRM modules"
+    ]
+  },
+
+  "designPrinciples": {
+    "core": [
+      "Use colour to communicate hierarchy and status rather than decoration.",
+      "Keep navigation visually distinct from the main workspace.",
+      "Use white surfaces for primary content and warm cream for supporting surfaces.",
+      "Use amber selectively for brand identity, primary actions and important highlights.",
+      "Prefer subtle borders and surface contrast over prominent shadows.",
+      "Keep financial figures easy to scan and align numeric values consistently.",
+      "Preserve consistent spacing, radii, typography and component behaviour across modules.",
+      "Reorganize layouts at smaller widths instead of shrinking the desktop interface."
+    ],
+    "avoid": [
+      "Unrelated saturated brand colours",
+      "Heavy shadows and excessive gradients",
+      "Unnecessary decorative elements",
+      "Overly bold section headings",
+      "Dense tables forced into narrow mobile viewports",
+      "Pure black page backgrounds in dark mode"
+    ]
+  },
+
+  "color": {
+    // Core palette 1: warm amber, sampled approximately from the header and selected states.
+    "primary": {
+      "name": "Amber",
+      "50": "#FFF3D8",
+      "100": "#FFE8B5",
+      "200": "#FFDA96",
+      "300": "#FFD481",
+      "400": "#FBBF24",
+      "500": "#F59E0B",
+      "600": "#D97706",
+      "700": "#B45309",
+      "800": "#92400E",
+      "900": "#78350F",
+      "default": "#FFD481",
+      "hover": "#FFC75F",
+      "pressed": "#F5BD59",
+      "soft": "#FFF3D8",
+      "usage": [
+        "Page header",
+        "Active sidebar navigation item",
+        "Primary action buttons",
+        "Highlighted financial metric card",
+        "Selected states and small brand accents"
+      ]
+    },
+
+    // Core palette 2: warm cream and beige, sampled approximately from the sidebar and muted cards.
+    "secondary": {
+      "name": "Warm Neutral",
+      "50": "#FCFAF5",
+      "100": "#F6F1E5",
+      "200": "#F4F2E5",
+      "300": "#EDE7D8",
+      "400": "#DED5C1",
+      "500": "#CBBFA8",
+      "600": "#A99B83",
+      "700": "#85775F",
+      "800": "#655944",
+      "900": "#40382C",
+      "default": "#F6F1E5",
+      "surface": "#F4F2E5",
+      "usage": [
+        "Sidebar background",
+        "Secondary metric cards",
+        "Muted surfaces",
+        "Supporting UI backgrounds"
+      ]
+    },
+
+    // Neutral grays are independent of the two brand palettes.
+    "neutral": {
+      "white": "#FFFFFF",
+      "black": "#111111",
+      "gray": {
+        "50": "#FAFAF9",
+        "100": "#F5F5F4",
+        "200": "#E7E7E5",
+        "300": "#D6D6D2",
+        "400": "#A8A8A3",
+        "500": "#858580",
+        "600": "#737373",
+        "700": "#525252",
+        "800": "#292929",
+        "900": "#171717",
+        "950": "#0B0B0B"
+      }
+    },
+
+    // Semantic accents are reserved for statuses, trends and feedback.
+    "accent": {
+      "success": {
+        "main": "#22A447",
+        "soft": "#E9F7EC",
+        "text": "#16803A",
+        "darkMain": "#4ADE80",
+        "darkSoft": "#173A27"
+      },
+      "danger": {
+        "main": "#FF8B8B",
+        "soft": "#FFF0F0",
+        "text": "#D94B4B",
+        "darkMain": "#F87171",
+        "darkSoft": "#3D2225"
+      },
+      "warning": {
+        "main": "#FFD481",
+        "soft": "#FFF5DD",
+        "text": "#946200",
+        "darkMain": "#FBBF24",
+        "darkSoft": "#40351D"
+      },
+      "info": {
+        "main": "#91C7E8",
+        "soft": "#EAF5FC",
+        "text": "#327CA8",
+        "darkMain": "#7DD3FC",
+        "darkSoft": "#1D3542"
+      },
+      "neutral": {
+        "main": "#C8CCC1",
+        "soft": "#F2F3F0",
+        "text": "#73766F",
+        "darkMain": "#858B80",
+        "darkSoft": "#30342F"
+      }
+    }
+  },
+
+  "themes": {
+    "light": {
+      "background": "#FFFFFF",
+      "backgroundMuted": "#FAFAF9",
+      "sidebar": "#F6F1E5",
+      "surface": "#FFFFFF",
+      "surfaceSecondary": "#F4F2E5",
+      "surfaceElevated": "#FFFFFF",
+      "header": "#FFD481",
+      "primary": "#FFD481",
+      "primaryHover": "#FFC75F",
+      "textPrimary": "#111111",
+      "textSecondary": "#737373",
+      "textMuted": "#A0A09B",
+      "textInverse": "#FFFFFF",
+      "border": "#E7E7E5",
+      "borderSubtle": "#F0F0ED",
+      "divider": "#E7E7E5",
+      "focusRing": "#D97706"
+    },
+    "dark": {
+      // Recommended dark theme values; not directly observable in the reference screenshot.
+      "background": "#171717",
+      "backgroundMuted": "#1D1D1D",
+      "sidebar": "#202020",
+      "surface": "#242424",
+      "surfaceSecondary": "#2B2B2B",
+      "surfaceElevated": "#303030",
+      "header": "#FFD481",
+      "primary": "#FFD481",
+      "primaryHover": "#FFE0A0",
+      "textPrimary": "#F5F5F4",
+      "textSecondary": "#A3A3A3",
+      "textMuted": "#737373",
+      "textInverse": "#171717",
+      "border": "#383838",
+      "borderSubtle": "#303030",
+      "divider": "#363636",
+      "focusRing": "#FFD481"
+    },
+    "modeRules": [
+      "Preserve the amber brand identity in both themes.",
+      "Do not invert the screenshot colours mechanically.",
+      "Use layered charcoal surfaces in dark mode rather than pure black.",
+      "Keep primary text near-white and secondary text medium gray in dark mode.",
+      "Use dark semantic surfaces for status backgrounds while preserving recognizable status hues.",
+      "Keep component dimensions, spacing and layout identical between themes."
+    ]
+  },
+
+  "typography": {
+    "fontFamily": {
+      "primary": "Inter",
+      "fallback": ["ui-sans-serif", "system-ui", "sans-serif"]
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "sizes": {
+      "xs": "11px",
+      "sm": "12px",
+      "base": "14px",
+      "md": "15px",
+      "lg": "16px",
+      "xl": "20px",
+      "2xl": "24px",
+      "3xl": "32px",
+      "4xl": "36px"
+    },
+    "lineHeights": {
+      "tight": 1.15,
+      "normal": 1.5,
+      "relaxed": 1.65
+    },
+    "letterSpacing": {
+      "tight": "-0.04em",
+      "normal": "0",
+      "wide": "0.02em"
+    },
+    "roles": {
+      "pageTitle": {
+        "fontSize": "36px",
+        "fontWeight": 600,
+        "lineHeight": 1.15,
+        "letterSpacing": "-0.03em"
+      },
+      "sectionTitle": {
+        "fontSize": "16px",
+        "fontWeight": 500,
+        "lineHeight": 1.4
+      },
+      "metricValue": {
+        "fontSize": "24px",
+        "fontWeight": 500,
+        "lineHeight": 1.2,
+        "fontVariantNumeric": "tabular-nums"
+      },
+      "cardLabel": {
+        "fontSize": "11px",
+        "fontWeight": 400,
+        "lineHeight": 1.4
+      },
+      "body": {
+        "fontSize": "14px",
+        "fontWeight": 400,
+        "lineHeight": 1.5
+      },
+      "tableHeader": {
+        "fontSize": "11px",
+        "fontWeight": 500,
+        "lineHeight": 1.4
+      },
+      "tableBody": {
+        "fontSize": "12px",
+        "fontWeight": 400,
+        "lineHeight": 1.5
+      },
+      "caption": {
+        "fontSize": "11px",
+        "fontWeight": 400,
+        "lineHeight": 1.4
+      }
+    },
+    "rules": [
+      "Use near-black for primary text in light mode.",
+      "Use muted gray for dates, helper text and supporting labels.",
+      "Keep section headings medium-weight rather than extra-bold.",
+      "Use tabular numerals for financial values and aligned numeric columns.",
+      "Avoid unnecessary uppercase labels."
+    ]
+  },
+
+  "layout": {
+    "applicationShell": {
+      "display": "flex",
+      "width": "100%",
+      "height": "100vh",
+      "minHeight": "100vh",
+      "overflow": "hidden"
+    },
+    "sidebar": {
+      "width": "280px",
+      "minWidth": "280px",
+      "height": "100vh",
+      "position": "sticky",
+      "top": "0",
+      "flexShrink": 0
+    },
+    "main": {
+      "flex": 1,
+      "minWidth": 0,
+      "height": "100vh",
+      "overflowY": "auto",
+      "overflowX": "hidden"
+    },
+    "pageHeader": {
+      "minHeight": "162px",
+      "padding": "20px",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "space-between",
+      "background": "theme.header"
+    },
+    "pageContent": {
+      "background": "theme.background",
+      "padding": "0",
+      "minWidth": 0
+    },
+    "dashboardGrid": {
+      "desktopColumns": "repeat(2, minmax(0, 1fr))",
+      "gap": "0",
+      "leftColumnSections": ["Overall metrics", "Payment methods"],
+      "rightColumnSections": ["Payment status", "Recent transactions"],
+      "bottomSection": "Invoices",
+      "separator": {
+        "size": "1px",
+        "color": "theme.divider"
+      }
+    }
+  },
+
+  "spacing": {
+    "0": "0px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px"
+  },
+
+  "radii": {
+    "none": "0px",
+    "sm": "6px",
+    "md": "10px",
+    "lg": "16px",
+    "xl": "20px",
+    "2xl": "24px",
+    "full": "9999px"
+  },
+
+  "bordersAndShadows": {
+    "borderWidths": {
+      "thin": "1px",
+      "default": "1px"
+    },
+    "light": {
+      "border": "1px solid #E7E7E5",
+      "borderSubtle": "1px solid #F0F0ED",
+      "shadowSubtle": "0 1px 3px rgba(0,0,0,0.04)",
+      "shadowCard": "0 2px 8px rgba(0,0,0,0.04)",
+      "shadowDropdown": "0 8px 24px rgba(0,0,0,0.10)"
+    },
+    "dark": {
+      "border": "1px solid #383838",
+      "borderSubtle": "1px solid #303030",
+      "shadowSubtle": "0 1px 3px rgba(0,0,0,0.18)",
+      "shadowCard": "0 2px 8px rgba(0,0,0,0.20)",
+      "shadowDropdown": "0 8px 24px rgba(0,0,0,0.35)"
+    },
+    "rule": "Prefer borders and surface contrast over prominent shadows."
+  },
+
+  "components": {
+    "brand": {
+      "placement": "Top of sidebar",
+      "logoDescription": "Minimal dark symbol with a small orange accent and dark wordmark",
+      "wordmarkWeight": 700,
+      "height": "48px",
+      "marginBottom": "28px"
+    },
+
+    "sidebarNavigation": {
+      "padding": "20px 12px",
+      "itemHeight": "46px",
+      "itemPadding": "0 18px",
+      "itemGap": "6px",
+      "borderRadius": "11px",
+      "fontSize": "14px",
+      "fontWeight": 400,
+      "iconSize": "18px",
+      "default": {
+        "background": "transparent",
+        "text": "#737373",
+        "icon": "#858585"
+      },
+      "hover": {
+        "background": "#F4F2E5",
+        "text": "#111111",
+        "icon": "#111111"
+      },
+      "active": {
+        "background": "#FFD481",
+        "text": "#111111",
+        "icon": "#111111",
+        "fontWeight": 600
+      },
+      "items": [
+        { "label": "Home", "icon": "home" },
+        { "label": "Products", "icon": "package" },
+        { "label": "Tasks", "icon": "file" },
+        { "label": "Accounts", "icon": "building" },
+        { "label": "Contacts", "icon": "users" },
+        { "label": "Invoices", "icon": "circle-dollar-sign", "active": true },
+        { "label": "Payments", "icon": "credit-card" },
+        { "label": "Documents", "icon": "file-text" }
+      ]
+    },
+
+    "sidebarProfile": {
+      "placement": "Anchored to bottom of sidebar",
+      "background": "#FFFFFF",
+      "borderRadius": "16px",
+      "padding": "12px",
+      "avatarSize": "42px",
+      "elements": ["Avatar", "Full name", "Role badge", "Logout icon"],
+      "roleBadge": {
+        "background": "#FFD481",
+        "text": "#111111",
+        "borderRadius": "9999px",
+        "fontSize": "10px"
+      }
+    },
+
+    "pageHeader": {
+      "background": "#FFD481",
+      "padding": "20px",
+      "minHeight": "162px",
+      "topRow": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "backButton": {
+          "size": "40px",
+          "background": "#FFFFFF",
+          "borderRadius": "10px"
+        },
+        "actionButtons": {
+          "size": "40px",
+          "background": "#FFFFFF",
+          "borderRadius": "10px",
+          "gap": "8px"
+        }
+      },
+      "mainRow": {
+        "display": "flex",
+        "justifyContent": "space-between",
+        "alignItems": "flex-end",
+        "titleSize": "36px",
+        "titleWeight": 600,
+        "subtitleSize": "13px",
+        "subtitleColor": "#66583C"
+      },
+      "primaryAction": {
+        "label": "Add new invoice",
+        "height": "40px",
+        "background": "#FFFFFF",
+        "text": "#111111",
+        "borderRadius": "10px",
+        "padding": "0 16px"
+      }
+    },
+
+    "metricCards": {
+      "display": "grid",
+      "columns": 3,
+      "gap": "8px",
+      "height": "120px",
+      "padding": "12px",
+      "borderRadius": "16px",
+      "layout": "Column with label, value and trend",
+      "variants": {
+        "highlighted": {
+          "background": "#FFD481"
+        },
+        "muted": {
+          "background": "#F4F2E5"
+        }
+      },
+      "label": {
+        "fontSize": "11px",
+        "color": "#737373"
+      },
+      "value": {
+        "fontSize": "24px",
+        "fontWeight": 500,
+        "color": "#111111"
+      },
+      "trend": {
+        "fontSize": "11px",
+        "fontWeight": 400
+      }
+    },
+
+    "paymentStatus": {
+      "layout": "Status groups with label, count and vertical rounded bars",
+      "categories": {
+        "paid": "#FFD481",
+        "due": "#FF8B8B",
+        "awaiting": "#C8CCC1"
+      },
+      "bar": {
+        "width": "20px",
+        "height": "72px",
+        "borderRadius": "9999px",
+        "gap": "2px"
+      },
+      "countFontSize": "16px",
+      "labelFontSize": "11px",
+      "rule": "Drive counts and bar segments from real data; do not hardcode the screenshot's example values."
+    },
+
+    "paymentMethods": {
+      "layout": "Horizontal row",
+      "gap": "12px",
+      "paymentCard": {
+        "width": "296px",
+        "height": "168px",
+        "background": "#FFD481",
+        "borderRadius": "16px",
+        "padding": "20px",
+        "overflow": "hidden",
+        "layers": [
+          { "name": "primary", "color": "#FFD481", "offsetX": "0px" },
+          { "name": "secondary", "color": "#FF8B8B", "offsetX": "14px" },
+          { "name": "tertiary", "color": "#C8CCC1", "offsetX": "28px" }
+        ],
+        "elements": [
+          "Provider label",
+          "Card chip illustration",
+          "Balance",
+          "Masked card number",
+          "Expiry date",
+          "Card network mark"
+        ],
+        "balanceFontSize": "28px",
+        "balanceFontWeight": 500
+      },
+      "addMethodCard": {
+        "width": "140px",
+        "height": "168px",
+        "background": "#F4F2E5",
+        "borderRadius": "16px",
+        "iconSize": "32px",
+        "iconBackground": "#111111",
+        "iconColor": "#FFFFFF",
+        "label": "Add method"
+      }
+    },
+
+    "recentTransactions": {
+      "padding": "16px",
+      "header": {
+        "titleFontSize": "16px",
+        "actionFontSize": "11px",
+        "actionDecoration": "underline"
+      },
+      "row": {
+        "minHeight": "44px",
+        "display": "grid",
+        "columns": "36px minmax(110px, 1fr) minmax(90px, 1fr) minmax(60px, auto) auto",
+        "alignItems": "center",
+        "gap": "8px"
+      },
+      "avatar": {
+        "size": "32px",
+        "shape": "circle",
+        "objectFit": "cover"
+      },
+      "customerName": {
+        "fontSize": "12px",
+        "fontWeight": 600
+      },
+      "dateAndTime": {
+        "fontSize": "11px",
+        "color": "#737373"
+      },
+      "amount": {
+        "fontSize": "13px",
+        "fontWeight": 500,
+        "alignment": "right"
+      }
+    },
+
+    "invoiceTable": {
+      "padding": "20px",
+      "title": {
+        "fontSize": "16px",
+        "fontWeight": 500,
+        "marginBottom": "16px"
+      },
+      "columns": [
+        "ID",
+        "Order",
+        "Created",
+        "Due to",
+        "Receiver",
+        "Amount",
+        "Status",
+        "Action",
+        "More"
+      ],
+      "header": {
+        "height": "36px",
+        "fontSize": "11px",
+        "fontWeight": 500,
+        "color": "#111111",
+        "borderBottom": "1px solid #E7E7E5"
+      },
+      "row": {
+        "minHeight": "82px",
+        "borderBottom": "1px solid #E7E7E5",
+        "verticalAlign": "middle"
+      },
+      "cell": {
+        "padding": "10px 0",
+        "fontSize": "12px"
+      },
+      "receiver": {
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "10px",
+        "avatarSize": "36px",
+        "nameFontSize": "13px",
+        "nameWeight": 600,
+        "roleFontSize": "11px",
+        "roleColor": "#737373"
+      },
+      "amount": {
+        "fontSize": "13px",
+        "fontWeight": 500,
+        "fontVariantNumeric": "tabular-nums"
+      },
+      "status": {
+        "display": "flex",
+        "alignItems": "center",
+        "gap": "8px",
+        "fontSize": "11px",
+        "due": "#FF8B8B",
+        "paid": "#91C7E8",
+        "awaiting": "#C8CCC1"
+      },
+      "actions": {
+        "pay": {
+          "height": "38px",
+          "minWidth": "78px",
+          "background": "#FFD481",
+          "borderRadius": "9px"
+        },
+        "view": {
+          "height": "38px",
+          "minWidth": "78px",
+          "background": "#FFFFFF",
+          "border": "1px solid #D6D6D2",
+          "borderRadius": "9px"
+        },
+        "more": {
+          "size": "38px",
+          "background": "#F5F5F4",
+          "borderRadius": "9999px"
+        }
+      },
+      "mobileAlternative": "Use stacked invoice cards with key details and actions; do not force the full table into a narrow viewport."
+    },
+
+    "buttons": {
+      "primary": {
+        "height": "40px",
+        "padding": "0 16px",
+        "background": "#FFD481",
+        "text": "#111111",
+        "border": "none",
+        "borderRadius": "10px",
+        "fontSize": "12px",
+        "fontWeight": 500,
+        "hoverBackground": "#FFC75F"
+      },
+      "secondary": {
+        "height": "40px",
+        "background": "#FFFFFF",
+        "text": "#111111",
+        "border": "1px solid #D6D6D2",
+        "borderRadius": "10px"
+      },
+      "icon": {
+        "size": "40px",
+        "background": "#FFFFFF",
+        "borderRadius": "10px"
+      },
+      "floating": {
+        "size": "38px",
+        "background": "#F5F5F4",
+        "borderRadius": "9999px"
+      }
+    },
+
+    "icons": {
+      "style": "Consistent simple outline icon family",
+      "strokeWidth": "1.7px to 2px",
+      "sizes": {
+        "sidebar": "18px",
+        "header": "18px",
+        "tableAction": "16px",
+        "largeAction": "22px",
+        "floatingAdd": "24px"
+      },
+      "rules": [
+        "Keep icon stroke and visual weight consistent.",
+        "Use filled treatment sparingly, such as the selected navigation icon.",
+        "Align icons optically with adjacent text."
+      ]
+    },
+
+    "avatars": {
+      "sizes": {
+        "small": "28px",
+        "medium": "36px",
+        "large": "42px"
+      },
+      "shape": "circle",
+      "objectFit": "cover",
+      "fallbackBackground": "#F4F2E5",
+      "fallbackText": "#111111"
+    }
+  },
+
+  "interactionStates": {
+    "button": {
+      "default": "Normal surface and text",
+      "hover": "Slightly darker or more contrasted surface",
+      "active": "Subtle pressed appearance",
+      "disabled": "Reduced opacity and no interaction",
+      "focus": "Clearly visible accessible focus ring"
+    },
+    "navigation": {
+      "default": "Transparent background",
+      "hover": "Warm cream surface",
+      "active": "Amber surface with dark icon and text"
+    },
+    "card": {
+      "default": "Flat surface with subtle border where needed",
+      "hover": "Very subtle elevation only when clickable",
+      "selected": "Amber border or soft amber surface"
+    },
+    "tableRow": {
+      "default": "Theme surface",
+      "hover": "Subtle neutral surface",
+      "selected": "Soft amber surface"
+    },
+    "form": {
+      "default": "Theme surface and subtle border",
+      "focus": "Amber border or focus ring",
+      "error": "Coral border and supporting error text",
+      "disabled": "Muted neutral surface"
+    }
+  },
+
+  "responsive": {
+    // Tailwind CSS default breakpoints.
+    "breakpoints": {
+      "base": { "min": "0px", "max": "639px", "label": "Mobile" },
+      "sm": { "min": "640px", "label": "Small tablet / large mobile" },
+      "md": { "min": "768px", "label": "Tablet" },
+      "lg": { "min": "1024px", "label": "Small desktop" },
+      "xl": { "min": "1280px", "label": "Desktop" },
+      "2xl": { "min": "1536px", "label": "Large desktop" }
+    },
+    "base": {
+      "sidebar": "Hidden by default; open as a left drawer over a dimmed backdrop.",
+      "header": "Compact; stack company title, address and primary action when needed.",
+      "dashboard": "Single-column layout.",
+      "metrics": "Two-column grid where practical, otherwise horizontally scrollable.",
+      "paymentMethods": "Horizontally scrollable.",
+      "transactions": "Compact list; show name and amount first, with date/time as supporting text.",
+      "invoices": "Stacked invoice cards.",
+      "pagePadding": "16px"
+    },
+    "sm": {
+      "sidebar": "Drawer or collapsible navigation.",
+      "dashboard": "Single column unless available width supports two columns comfortably.",
+      "metrics": "Three columns when cards remain readable.",
+      "paymentMethods": "Two items side by side when space allows.",
+      "invoices": "Contained horizontal scrolling table or invoice cards."
+    },
+    "md": {
+      "sidebar": "Compact icon rail or collapsible sidebar.",
+      "dashboard": "One or two columns based on actual content width.",
+      "metrics": "Three columns.",
+      "transactions": "Compact rows with secondary metadata reduced.",
+      "invoices": "Scrollable table within its own container."
+    },
+    "lg": {
+      "sidebar": "Visible at a reduced width where necessary.",
+      "dashboard": "Two columns when each column has sufficient width.",
+      "metrics": "Three columns.",
+      "invoices": "Full table where readable; otherwise contained horizontal scrolling."
+    },
+    "xl": {
+      "sidebar": "Full sidebar.",
+      "dashboard": "Two-column analytics layout.",
+      "metrics": "Three columns.",
+      "transactions": "Full desktop rows.",
+      "invoices": "Full-width table."
+    },
+    "2xl": {
+      "sidebar": "Keep a consistent fixed width.",
+      "dashboard": "Preserve two-column layout and comfortable spacing.",
+      "content": "Use available space without stretching cards excessively.",
+      "invoices": "Use extra width to improve column readability."
+    },
+    "rules": [
+      "Do not scale the entire desktop layout down to fit mobile.",
+      "Change component arrangement and information density at smaller breakpoints.",
+      "Prevent page-level horizontal overflow.",
+      "If a table must scroll, constrain overflow to the table container.",
+      "Keep touch targets comfortable on mobile.",
+      "Preserve visual hierarchy and brand colours at every breakpoint."
+    ]
+  },
+
+  "componentInventory": {
+    "layout": [
+      "ApplicationShell",
+      "Sidebar",
+      "SidebarNavigation",
+      "SidebarNavigationItem",
+      "MobileNavigationDrawer",
+      "MainContent",
+      "PageHeader",
+      "DashboardGrid",
+      "SectionContainer"
+    ],
+    "navigation": [
+      "BrandLogo",
+      "BackButton",
+      "HeaderActions",
+      "UserProfile",
+      "NotificationButton"
+    ],
+    "cards": [
+      "MetricCard",
+      "PaymentCard",
+      "AddPaymentMethodCard",
+      "StatusCard"
+    ],
+    "analytics": [
+      "StatusDistribution",
+      "TrendIndicator",
+      "FinancialSummary"
+    ],
+    "transactions": [
+      "RecentTransactions",
+      "TransactionItem",
+      "CustomerAvatar"
+    ],
+    "invoices": [
+      "InvoiceTable",
+      "InvoiceTableHeader",
+      "InvoiceTableRow",
+      "InvoiceStatus",
+      "InvoiceActionButton",
+      "InvoiceMobileCard"
+    ],
+    "shared": [
+      "Button",
+      "IconButton",
+      "Avatar",
+      "Badge",
+      "Divider",
+      "Tooltip",
+      "Dropdown",
+      "EmptyState"
+    ]
+  },
+
+  "moduleConsistency": {
+    "appliesTo": [
+      "Home",
+      "Products",
+      "Tasks",
+      "Accounts",
+      "Contacts",
+      "Invoices",
+      "Payments",
+      "Documents"
+    ],
+    "rules": [
+      "Reuse the same application shell and navigation.",
+      "Reuse page title, header action and content section patterns.",
+      "Reuse metric cards, tables, badges, buttons and form styles.",
+      "Use the same colour tokens and typography hierarchy in every module.",
+      "Do not create a separate visual identity for individual modules.",
+      "New components must extend existing tokens and patterns."
+    ]
+  },
+
+  "implementationPrompt": {
+    "title": "CNXRetail UI implementation brief",
+    "prompt": "Implement the CNXRetail dashboard using this JSONC design system as the authoritative visual specification. Recreate the supplied reference screenshot's warm amber and cream identity, left navigation sidebar, amber company header, financial metric cards, payment status visualization, overlapping payment cards, recent transaction list and full-width invoice table. Match the reference's visual hierarchy, proportions, spacing, alignment, typography, radii, borders and restrained use of shadows. Support both light and dark themes using the semantic theme values defined here; preserve amber as the brand colour and use layered charcoal surfaces for dark mode. Follow the responsive breakpoints and behaviours defined here: use a navigation drawer on mobile, reorganize analytics into a single column when necessary, simplify transaction rows, and convert the invoice table into stacked cards on narrow screens. Build reusable components and apply the same design language to Home, Products, Tasks, Accounts, Contacts, Invoices, Payments and Documents. Treat the two core palettes as the only brand palettes. Use neutrals for structure and semantic accents only for statuses and feedback. Do not introduce unrelated colours, heavy shadows, decorative gradients or a different visual direction. Prioritize fidelity to the screenshot, consistency across modules, readability of financial data, accessible interaction states and responsive usability."
+  }
+}

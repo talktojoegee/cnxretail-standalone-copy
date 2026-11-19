@@ -43,6 +43,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->group(base_path('routes/api.php'));
 
+            Route::prefix('api/v2')
+                ->middleware('api')
+                ->group(base_path('routes/api_v2.php'));
+
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
@@ -57,6 +61,14 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+        });
+
+        RateLimiter::for('api-v2-public', function (Request $request) {
+            return Limit::perMinute(120)->by($request->ip());
+        });
+
+        RateLimiter::for('api-v2-auth', function (Request $request) {
+            return Limit::perMinute(20)->by($request->ip());
         });
     }
 }
