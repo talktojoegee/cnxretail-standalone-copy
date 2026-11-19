@@ -99,5 +99,39 @@ class Tenant extends Model
         return Tenant::where('id', $tenant_id)->first();
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class, 'tenant_id');
+    }
+
+    public function buyerRequests()
+    {
+        return $this->hasMany(BuyerRequest::class, 'tenant_id');
+    }
+
+    public function isSubscriptionActive(): bool
+    {
+        return $this->end_date !== null && Carbon::parse($this->end_date)->startOfDay()->gte(Carbon::today());
+    }
+
+    public function setAccountStatus(int $status): void
+    {
+        $this->account_status = $status === 1 ? 1 : 0;
+        $this->save();
+    }
+
+    public function extendSubscription(int $days): void
+    {
+        $base = $this->end_date && Carbon::parse($this->end_date)->isFuture()
+            ? Carbon::parse($this->end_date)
+            : Carbon::now();
+
+        $this->end_date = $base->copy()->addDays(max(1, $days));
+        if (! $this->start_date) {
+            $this->start_date = Carbon::now();
+        }
+        $this->account_status = 1;
+        $this->save();
+    }
 
 }

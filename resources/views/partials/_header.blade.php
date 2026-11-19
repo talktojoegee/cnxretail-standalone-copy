@@ -21,5 +21,6 @@
     <link href="/assets/css/icons.css" rel="stylesheet"/>
     <link href="/assets/plugins/sidebar/sidebar.css" rel="stylesheet">
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="/assets/colors/color1.css" />
+    <link href="/assets/css/cnx-admin.css" rel="stylesheet"/>
 @yield('extra-styles')
 </head>

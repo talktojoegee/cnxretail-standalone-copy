@@ -1,154 +1,246 @@
 @extends('layouts.admin-layout')
-@section('active-page')
-    Admin Dashboard
-@endsection
-
-@section('breadcrumb-action-btn')
-
-@endsection
+@section('title', 'Admin Dashboard')
+@section('active-page', 'Admin Dashboard')
 
 @section('main-content')
     <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-order">
-                        <h6 class="mb-2">Tenants</h6>
-                        <h2 class="text-right "><i class="mdi mdi-account-multiple icon-size float-left text-primary text-primary-shadow"></i><span>{{number_format($tenants->count())}}</span></h2>
-                        <p class="mb-0">All time</p>
-                    </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Tenants</h6>
+                    <p class="value">{{ number_format($stats['tenants']) }}</p>
+                    <p class="hint">{{ number_format($stats['this_month']) }} joined this month</p>
                 </div>
-            </div>
-        </div><!-- COL END -->
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card ">
-                <div class="card-body">
-                    <div class="card-widget">
-                        <h6 class="mb-2">Tenants</h6>
-                        <h2 class="text-right"><i class="mdi mdi-account-multiple icon-size float-left text-success text-success-shadow"></i><span>{{number_format($tenants->where('account_status',1)->count())}}</span></h2>
-                        <p class="mb-0">Active Subscription</p>
-                    </div>
-                </div>
-            </div>
+                <span class="cnx-stat-icon"><i class="ti-briefcase"></i></span>
+            </div></div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-widget">
-                        <h6 class="mb-2">Tenants</h6>
-                        <h2 class="text-right"><i class="icon-size mdi mdi-account-multiple   float-left text-warning text-warning-shadow"></i><span>{{number_format($tenants->where('account_status',0)->count())}}</span></h2>
-                        <p class="mb-0">Inactive Subscription</p>
-                    </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Active Plans</h6>
+                    <p class="value">{{ number_format($stats['subscribed']) }}</p>
+                    <p class="hint">{{ number_format($stats['expired']) }} expired</p>
                 </div>
-            </div>
+                <span class="cnx-stat-icon is-success"><i class="ti-check"></i></span>
+            </div></div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-            <div class="card ">
-                <div class="card-body">
-                    <div class="card-widget">
-                        <h6 class="mb-2">New Tenants</h6>
-                        <h2 class="text-right"><i class="mdi mdi-account-multiple icon-size float-left text-danger text-danger-shadow"></i><span>{{number_format($thismonth->count())}}</span></h2>
-                        <p class="mb-0">This Month</p>
-                    </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Est. MRR</h6>
+                    <p class="value">₦{{ number_format($stats['mrr'], 0) }}</p>
+                    <p class="hint">Paid plans still in term</p>
                 </div>
-            </div>
+                <span class="cnx-stat-icon"><i class="ti-money"></i></span>
+            </div></div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Renewals Due</h6>
+                    <p class="value">{{ number_format($stats['expiring']) }}</p>
+                    <p class="hint">Next 14 days</p>
+                </div>
+                <span class="cnx-stat-icon is-warning"><i class="ti-alarm-clock"></i></span>
+            </div></div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-8 col-lg-8">
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Users</h6>
+                    <p class="value">{{ number_format($stats['users']) }}</p>
+                    <p class="hint">{{ number_format($stats['suspended']) }} tenants suspended</p>
+                </div>
+                <span class="cnx-stat-icon"><i class="ti-user"></i></span>
+            </div></div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Catalog</h6>
+                    <p class="value">{{ number_format($stats['products'] + $stats['services']) }}</p>
+                    <p class="hint">{{ number_format($stats['products']) }} products · {{ number_format($stats['services']) }} services</p>
+                </div>
+                <span class="cnx-stat-icon"><i class="ti-package"></i></span>
+            </div></div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Buyer Requests</h6>
+                    <p class="value">{{ number_format($stats['buyer_requests']) }}</p>
+                    <p class="hint">Marketplace demand</p>
+                </div>
+                <span class="cnx-stat-icon"><i class="ti-shopping-cart"></i></span>
+            </div></div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card"><div class="card-body cnx-stat">
+                <div>
+                    <h6>Contact Messages</h6>
+                    <p class="value">{{ number_format($stats['contact_messages']) }}</p>
+                    <p class="hint">Public contact form</p>
+                </div>
+                <span class="cnx-stat-icon is-danger"><i class="ti-email"></i></span>
+            </div></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Recent Registrations</h3>
+                    <h3 class="card-title mb-0">Tenant registrations</h3>
+                    <span class="cnx-muted">Last 6 months</span>
+                </div>
+                <div class="card-body">
+                    <canvas id="cnx-admin-registrations" height="120"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Recent registrations</h3>
+                    <a href="{{ route('manage-tenants') }}" class="btn btn-sm btn-primary">View all</a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap mb-0">
+                    <table class="table card-table table-vcenter text-nowrap mb-0 cnx-admin-table">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Company Name</th>
+                            <th>Company</th>
                             <th>Plan</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Action</th>
+                            <th>Status</th>
+                            <th>Ends</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @php $serial = 1; @endphp
-                        @foreach($tenants->take(10) as $tenant)
-                        <tr>
-                            <th scope="row">{{$serial++}}</th>
-                            <td>{{$tenant->company_name ?? '' }}</td>
-                            <td>{{$tenant->getTenantPlan->price_name ?? '-'}}</td>
-                            <td class="text-success">{{date('d M, Y', strtotime($tenant->start_date))}}</td>
-                            <td class="text-danger">{{date('d M, Y', strtotime($tenant->end_date))}}</td>
-                            <td>
-                                <a href="{{route('view-tenant', $tenant->slug)}}" class="btn btn-info btn-sm"><i class="ti-eye"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
+                        @forelse($recentTenants as $tenant)
+                            @php
+                                $subscribed = $tenant->isSubscriptionActive();
+                                $badge = $tenant->account_status != 1 ? 'is-suspended' : ($subscribed ? 'is-active' : 'is-expired');
+                                $label = $tenant->account_status != 1 ? 'Suspended' : ($subscribed ? 'Active plan' : 'Expired');
+                            @endphp
+                            <tr>
+                                <td>
+                                    <strong>{{ $tenant->company_name }}</strong>
+                                    <div class="cnx-muted">{{ $tenant->email }}</div>
+                                </td>
+                                <td>{{ $tenant->getTenantPlan->price_name ?? '—' }}</td>
+                                <td><span class="cnx-badge {{ $badge }}">{{ $label }}</span></td>
+                                <td>{{ $tenant->end_date ? date('d M, Y', strtotime($tenant->end_date)) : '—' }}</td>
+                                <td><a href="{{ route('view-tenant', $tenant->slug) }}" class="btn btn-sm btn-outline-primary">Open</a></td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="5" class="text-center cnx-muted">No tenants yet.</td></tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
+
+        <div class="col-lg-4">
             <div class="card">
-                <div class="card-header border-bottom-0">
-                    <h3 class="card-title">Upcoming Renewals</h3>
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Plan mix</h3>
+                </div>
+                <div class="card-body">
+                    @php $planTotal = max(1, $planMix->sum('total')); @endphp
+                    @forelse($planMix as $plan)
+                        <div class="cnx-plan-bar">
+                            <div style="min-width:90px;">{{ $plan->label }}</div>
+                            <div class="cnx-plan-track"><div class="cnx-plan-fill" style="width: {{ round(($plan->total / $planTotal) * 100) }}%"></div></div>
+                            <strong>{{ number_format($plan->total) }}</strong>
+                        </div>
+                    @empty
+                        <p class="cnx-muted mb-0">No plan data yet.</p>
+                    @endforelse
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Upcoming renewals</h3>
+                    <a href="{{ route('manage-tenants', ['status' => 'expiring']) }}" class="btn btn-sm btn-light">See all</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table  mb-0 text-nowrap">
+                        <table class="table mb-0">
                             <tbody>
-                            @foreach($tenants as $tent)
-                                @if(round(abs(strtotime($tent->end_date) - strtotime(now()))/86400) <= 14)
+                            @forelse($expiringTenants as $tenant)
                                 <tr>
                                     <td>
-                                        <h6 class="mb-0 font-weight-semibold"><a href="{{route('view-tenant', $tent->slug)}}">{{$tent->company_name ?? ''}}</a></h6>
-                                        <small class="fs-11 text-muted">{{$tent->getTenantPlan->price_name ?? ''}}</small>
+                                        <a href="{{ route('view-tenant', $tenant->slug) }}"><strong>{{ $tenant->company_name }}</strong></a>
+                                        <div class="cnx-muted">{{ $tenant->getTenantPlan->price_name ?? 'No plan' }}</div>
                                     </td>
-                                    <td>
-                                        <small class="fs-11 text-muted"><small class="ml-1 fs-11 badge badge-secondary">{{round(abs(strtotime($tenant->end_date) - strtotime(now()))/86400) }} days</small> remaining</small>
+                                    <td class="text-right">
+                                        <span class="cnx-badge is-expiring">
+                                            {{ \Carbon\Carbon::parse($tenant->end_date)->diffForHumans() }}
+                                        </span>
                                     </td>
                                 </tr>
-                                @endif
-                            @endforeach
+                            @empty
+                                <tr><td class="text-center cnx-muted py-4">No renewals in the next 14 days.</td></tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Latest buyer requests</h3>
+                    <a href="{{ route('admin.buyer-requests') }}" class="btn btn-sm btn-light">Open</a>
+                </div>
+                <div class="card-body">
+                    @forelse($recentBuyerRequests as $request)
+                        <div class="mb-3 pb-3 border-bottom">
+                            <strong>{{ $request->first_name }}</strong>
+                            <div class="cnx-muted">{{ $request->email }} · {{ $request->created_at?->format('d M, Y') }}</div>
+                        </div>
+                    @empty
+                        <p class="cnx-muted mb-0">No buyer requests yet.</p>
+                    @endforelse
+                </div>
+            </div>
         </div>
     </div>
 @endsection
+
 @section('extra-scripts')
-    <script src="/assets/js/circle-progress.min.js"></script>
     <script src="/assets/plugins/chart/Chart.bundle.js"></script>
-    <script src="/assets/plugins/chart/utils.js"></script>
-    <script src="/assets/plugins/peitychart/jquery.peity.min.js"></script>
-    <script src="/assets/plugins/peitychart/peitychart.init.js"></script>
-    <script src="/assets/js/apexcharts.js"></script>
-    <script src="/assets/js/index1.js"></script>
-    <script src="/assets/js/custom.js"></script>
     <script>
-        $(document).ready(function(){
-            var now = new Date();
-            var hrs = now.getHours();
-            var msg = "";
-            var src = "";
-            if (hrs >  0){
-                msg = "Morning";
-                src = "/assets/drive/good-morning.jpg";
-
-            } // REALLY early
-            if (hrs >  6) {msg = "Good morning"; src = "/assets/drive/good-morning.jpg"; }     // After 6am
-            if (hrs >= 12) {msg = "Good afternoon"; src = "/assets/drive/good-afternoon.jpg";}    // After 12pm
-            if (hrs >= 16) {msg = "Good evening"; src = "/assets/drive/good-evening.jpg";}      // After 5pm
-            if (hrs > 22) {msg = "Well done!"; src = "/assets/drive/late-night.jpg"; }        // After 10pm
-            $('#greeting').text(msg);
-            $('#greeting-image').attr('src',src);
-            console.log(hrs);
-        });
-
+        (function () {
+            var canvas = document.getElementById('cnx-admin-registrations');
+            if (!canvas || typeof Chart === 'undefined') return;
+            new Chart(canvas.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: @json($chartLabels),
+                    datasets: [{
+                        label: 'New tenants',
+                        data: @json($chartValues),
+                        borderColor: '#2446d4',
+                        backgroundColor: 'rgba(36,70,212,0.12)',
+                        pointBackgroundColor: '#2446d4',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    scales: {
+                        yAxes: [{ ticks: { beginAtZero: true, precision: 0 } }],
+                        xAxes: [{ gridLines: { display: false } }]
+                    }
+                }
+            });
+        })();
     </script>
 @endsection

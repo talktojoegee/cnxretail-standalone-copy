@@ -195,13 +195,19 @@ Route::post('/process-subscription-renewal',[App\Http\Controllers\Auth\LoginCont
 Route::prefix('/tunnel')->group(function(){
     Route::get('/',[App\Http\Controllers\AdminAuth\LoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/',[App\Http\Controllers\AdminAuth\LoginController::class, 'login']);
+    Route::post('/logout',[App\Http\Controllers\AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/add-new-user',[App\Http\Controllers\AdminController::class, 'showAddNewUserForm'])->name('add-new-admin-user');
     Route::get('/manage-admin-users',[App\Http\Controllers\AdminController::class, 'manageAdminUsers'])->name('manage-admin-users');
     Route::post('/add-new-user',[App\Http\Controllers\AdminController::class, 'storeAdminUser']);
     Route::get('/dashboard',[App\Http\Controllers\AdminController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/manage-tenants',[App\Http\Controllers\AdminController::class, 'manageTenants'])->name('manage-tenants');
     Route::get('/view-tenant/{slug}',[App\Http\Controllers\AdminController::class, 'viewTenant'])->name('view-tenant');
+    Route::post('/view-tenant/{slug}/status',[App\Http\Controllers\AdminController::class, 'updateTenantStatus'])->name('admin.tenant.status');
+    Route::post('/view-tenant/{slug}/extend',[App\Http\Controllers\AdminController::class, 'extendTenantSubscription'])->name('admin.tenant.extend');
     Route::get('/subscription',[App\Http\Controllers\AdminController::class, 'getTenantSubscriptions'])->name('subscriptions');
+    Route::get('/buyer-requests',[App\Http\Controllers\AdminController::class, 'buyerRequests'])->name('admin.buyer-requests');
+    Route::get('/contact-inquiries',[App\Http\Controllers\AdminController::class, 'contactInquiries'])->name('admin.contact-inquiries');
+    Route::get('/activity-logs',[App\Http\Controllers\AdminController::class, 'activityLogs'])->name('admin.activity-logs');
     Route::get('/manage-pricing',[App\Http\Controllers\AdminController::class, 'managePricing'])->name('manage-pricing');
     Route::post('/add-pricing',[App\Http\Controllers\AdminController::class, 'addPricing'])->name('add-pricing');
     Route::get('/admin-notifications',[App\Http\Controllers\AdminController::class, 'notification'])->name('admin-notifications');

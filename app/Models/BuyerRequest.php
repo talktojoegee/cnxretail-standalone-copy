@@ -10,8 +10,15 @@ class BuyerRequest extends Model
 {
     use HasFactory;
 
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class, 'tenant_id');
+    }
 
-
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'product_id');
+    }
 
     public function setNewBuyerRequest(Request $request, $tenant_id){
         $buyer = new BuyerRequest();

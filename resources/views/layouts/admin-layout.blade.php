@@ -1,9 +1,8 @@
-@include('partials._header')
+@include('partials._admin-header')
 
-<body class="app sidebar-mini">
+<body class="app sidebar-mini cnx-admin-page">
 <div class="page">
     <div class="page-main">
-
         @include('partials._admin-sidebar-menu')
         @include('partials._admin-app-header')
         <div class="app-content">
@@ -13,11 +12,7 @@
             </div>
         </div>
     </div>
-
-
     @include('partials._footer')
 </div>
-
-<!-- BACK-TO-TOP -->
-<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
-@include('partials._footer-scripts')
+<a href="#top" id="back-to-top"><i class="ti-angle-up"></i></a>
+@include('partials._admin-footer-scripts')

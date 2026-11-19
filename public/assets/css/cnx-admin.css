@@ -1,0 +1,137 @@
+:root {
+    --cnx-admin-blue: #2446d4;
+    --cnx-admin-navy: #15203a;
+    --cnx-admin-muted: #6b7a99;
+    --cnx-admin-border: #e6ebf5;
+}
+
+.cnx-admin-page .card {
+    border: 1px solid var(--cnx-admin-border);
+    box-shadow: none;
+    border-radius: 14px;
+}
+
+.cnx-admin-page .card-header {
+    border-bottom: 1px solid var(--cnx-admin-border);
+    background: #fff;
+}
+
+.cnx-stat {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.cnx-stat h6 {
+    color: var(--cnx-admin-muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.cnx-stat .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--cnx-admin-navy);
+    line-height: 1.1;
+    margin: 0;
+}
+
+.cnx-stat .hint {
+    color: var(--cnx-admin-muted);
+    font-size: 12px;
+    margin: 8px 0 0;
+}
+
+.cnx-stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(36, 70, 212, .08);
+    color: var(--cnx-admin-blue);
+    flex-shrink: 0;
+}
+
+.cnx-stat-icon.is-success { background: rgba(16, 185, 129, .1); color: #059669; }
+.cnx-stat-icon.is-warning { background: rgba(245, 158, 11, .12); color: #d97706; }
+.cnx-stat-icon.is-danger { background: rgba(239, 68, 68, .1); color: #dc2626; }
+
+.cnx-admin-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    align-items: end;
+}
+
+.cnx-admin-filters .form-control,
+.cnx-admin-filters .custom-select {
+    border-radius: 10px;
+    border-color: var(--cnx-admin-border);
+    height: 42px;
+}
+
+.cnx-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cnx-badge.is-active { background: rgba(16, 185, 129, .12); color: #047857; }
+.cnx-badge.is-expired { background: rgba(239, 68, 68, .12); color: #b91c1c; }
+.cnx-badge.is-suspended { background: rgba(107, 114, 128, .14); color: #4b5563; }
+.cnx-badge.is-expiring { background: rgba(245, 158, 11, .14); color: #b45309; }
+
+.cnx-admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cnx-admin-actions .btn,
+.cnx-admin-page .btn-primary {
+    border-radius: 10px;
+}
+
+.cnx-admin-page .btn-primary {
+    background: var(--cnx-admin-blue);
+    border-color: var(--cnx-admin-blue);
+}
+
+.cnx-admin-table td,
+.cnx-admin-table th {
+    vertical-align: middle;
+}
+
+.cnx-plan-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.cnx-plan-track {
+    flex: 1;
+    height: 8px;
+    border-radius: 999px;
+    background: #eef2ff;
+    overflow: hidden;
+}
+
+.cnx-plan-fill {
+    height: 100%;
+    background: var(--cnx-admin-blue);
+}
+
+.cnx-muted {
+    color: var(--cnx-admin-muted);
+}
